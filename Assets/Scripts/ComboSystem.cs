@@ -1,19 +1,41 @@
 using System.Collections.Generic;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class ComboSystem : MonoBehaviour
 {
-    [SerializeField] List<string> combos = new List<string> { "COMBO1", "COMBO2", "COMBO3" };
-    private string currentSequence = "";
+    [SerializeField] List<ComboSequence> comboSequences = new List<ComboSequence>();
+    [SerializeField] SpriteAtlas atlas = default;
+    [SerializeField] GameObject sequencesContainer;
+
+    private string currentTypedSequence = "";
     private float lastInputTime = 0f;
-    private float comboTimeout = 1f; // Time player has to hit the next key in sequence
-    int currentIndex = 0; 
+    private float comboTimeout = 5f; // Time player has to hit the next key in sequence
+    int currentIndex = 0;
+
+    private void Start()
+    {
+
+        int i = 0;
+        //foreach (string combosName in combosNames)
+        //{
+        //    ComboSequence newComboSequence = new ComboSequence(combosNames[i]);
+        //    comboSequences.Add(newComboSequence);
+        //}
+
+        foreach(ComboSequence sequence in comboSequences)
+        {           
+            sequence.Initialize(sequence.Id, atlas);
+            i++;
+        }
+    }
 
     void Update()
     {
         if (Time.time - lastInputTime > comboTimeout)
         {
-            currentSequence = ""; // Reset the sequence if too much time has passed
+            currentTypedSequence = ""; // Reset the sequence if too much time has passed
         }
 
         // Detect each key of the combo
@@ -80,41 +102,47 @@ public class ComboSystem : MonoBehaviour
 
     private void AddKeyToSequence(string key)
     {
-        currentSequence += key;
+        currentTypedSequence += key;
         lastInputTime = Time.time;
     }
 
     private void CheckCombo()
     {
 
-        foreach (string combo in combos)
+        foreach (ComboSequence comboSequence in comboSequences)
         {
-            if (currentSequence == combo)
+            if (currentTypedSequence == comboSequence.Id)
             {
                 // Combo matched, reset sequence
-                currentSequence = "";
+                currentTypedSequence = "";
                 currentIndex = 0;
-                ExecuteCombo(combo);
+                ExecuteCombo(comboSequence.Id);
                 return;
             }
         }
 
         // If no combo matched, check if the current sequence is part of any combo
-        foreach (string combo in combos)
+        foreach (ComboSequence comboSequence in comboSequences)
         {
-            if (combo.StartsWith(currentSequence))
+            if (!string.IsNullOrEmpty(currentTypedSequence) && comboSequence.Id.StartsWith(currentTypedSequence))
             {
                 // Current sequence is part of a combo, increment index
-                currentIndex = currentSequence.Length;
+                currentIndex = currentTypedSequence.Length;
+                comboSequence.ForwardCombo(currentIndex);
                 return;
             }
         }
 
 
         // If no combo or partial combo matched, reset sequence
-        currentSequence = "";
+        currentTypedSequence = "";
         currentIndex = 0;
-        FailCombo();
+
+        foreach (ComboSequence comboSequence in comboSequences)
+        {
+            comboSequence.EndCombo(); 
+            //FailCombo();
+        }
     }
 
     private void ExecuteCombo(string combo)
