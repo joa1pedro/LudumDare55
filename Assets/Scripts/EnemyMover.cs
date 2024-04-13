@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class EnemyMover : MonoBehaviour
 {
-    public GameObject enemyPrefab;
-    public float speed = 2.0f;
+    [SerializeField] GameObject EnemyPrefab;
+    [SerializeField] GameObject EnemyContainer;
+    [SerializeField] Summoner Summoner;
+
+    [SerializeField] float Speed = 2.0f;
+
+    [SerializeField] float minSpawnTime = 3.0f;
+    [SerializeField] float maxSpawnTime = 3.0f;
+
+    [SerializeField] float dyingPosition = -3.0f;
+
+
     private List<GameObject> enemies = new List<GameObject>();  // List to track all enemies
-    public Summoner summoner;
+
 
     void Start()
     {
@@ -21,15 +31,15 @@ public class EnemyMover : MonoBehaviour
         {
             if (enemies[i] != null)
             {
-                enemies[i].transform.Translate(new Vector3(-speed, 0, 0) * Time.deltaTime);
-                if (enemies[i].transform.position.x <= -3.0f)
+                enemies[i].transform.Translate(new Vector3(-Speed, 0, 0) * Time.deltaTime);
+                if (enemies[i].transform.position.x <= dyingPosition)
                 {
                     Debug.Log("Enemy has crossed the map!");
                     Destroy(enemies[i]);
                     enemies.RemoveAt(i);  // Remove the enemy from the list after destroying it
-                    if (summoner != null)
+                    if (Summoner != null)
                     {
-                        summoner.ReduceHP(5);
+                        Summoner.ReduceHP(5);
                     }
                 }
             }
@@ -40,15 +50,15 @@ public class EnemyMover : MonoBehaviour
     {
         while (true)  // Infinite loop to keep spawning enemies
         {
-            yield return new WaitForSeconds(Random.Range(3f, 6f));  // Wait for a random time between 3 and 6 seconds
+            yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));  // Wait for a random time between 3 and 6 seconds
             SpawnEnemy();
         }
     }
 
     void SpawnEnemy()
     {
-        Vector3 spawnPosition = new Vector3(8.57f, -3.06f, -1);
-        GameObject newEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+
+        GameObject newEnemy = Instantiate(EnemyPrefab, EnemyContainer.transform);
         newEnemy.SetActive(true);
         enemies.Add(newEnemy);  // Add the new enemy to the list
     }
