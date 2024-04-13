@@ -57,7 +57,6 @@ public class EnemyMover : MonoBehaviour
 
     void SpawnEnemy()
     {
-
         GameObject newEnemy = Instantiate(EnemyPrefab, EnemyContainer.transform);
         newEnemy.SetActive(true);
         enemies.Add(newEnemy);  // Add the new enemy to the list
