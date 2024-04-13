@@ -7,7 +7,9 @@ public class ComboPiece : MonoBehaviour
 {
     public int Index;
 
-    [SerializeField] Image sprite;
+    [SerializeField] Image currentSprite;
+    private Sprite normalSprite;
+    private Sprite pressedSprite;
 
     public bool Active = false;
 
@@ -17,9 +19,15 @@ public class ComboPiece : MonoBehaviour
         this.Active = false;
     }
 
-    public void SetSprite(Sprite image)
+    public void SetSprite(Sprite sprite)
     {
-        sprite.sprite = image;
+        normalSprite = sprite;
+        currentSprite.sprite = normalSprite;
+    }
+
+    public void SetPressedSprite(Sprite sprite)
+    {
+        pressedSprite = sprite;
     }
 
     public void Activate(string comboName)
@@ -27,7 +35,7 @@ public class ComboPiece : MonoBehaviour
         if (!Active)
         {
             Active = true;
-            sprite.color = Color.green;
+            currentSprite.sprite = pressedSprite;
         }
 
     }
@@ -35,6 +43,6 @@ public class ComboPiece : MonoBehaviour
     public void MyComboEnded(string comboName)
     {
         Active = false;
-        sprite.color = Color.white;
+        currentSprite.sprite = normalSprite;
     }
 }

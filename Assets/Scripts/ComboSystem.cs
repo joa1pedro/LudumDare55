@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
@@ -5,15 +6,24 @@ using UnityEngine.U2D;
 
 public class ComboSystem : MonoBehaviour
 {
-    [SerializeField] List<ComboSequence> comboSequences = new List<ComboSequence>();
-    [SerializeField] SpriteAtlas atlas = default;
-    [SerializeField] GameObject sequencesContainer;
+    [Header("Atlases")]
+    [SerializeField] SpriteAtlas normalKeyAtlas = default; 
+    [SerializeField] SpriteAtlas pressedKeyAtlas = default;
+
+    [Header("Point System Reference")]
     [SerializeField] PointSystem pointSystem;
 
+    [Header("Canvas Shake Reference")]
+    [SerializeField] CanvasShaker canvasToShake;
+
+    [Header("Combo Related Stuff")]
+    [SerializeField] List<ComboSequence> comboSequences = new List<ComboSequence>();
+
+    // Privates
     private string currentTypedSequence = "";
     private float lastInputTime = 0f;
     private float comboTimeout = 5f; // Time player has to hit the next key in sequence
-    int currentIndex = 0;
+    private int currentIndex = 0;
 
     private void Start()
     {
@@ -27,7 +37,7 @@ public class ComboSystem : MonoBehaviour
 
         foreach(ComboSequence sequence in comboSequences)
         {           
-            sequence.Initialize(sequence.Id, atlas);
+            sequence.Initialize(sequence.Id, normalKeyAtlas, pressedKeyAtlas);
             i++;
         }
     }
@@ -109,6 +119,8 @@ public class ComboSystem : MonoBehaviour
 
     private void CheckCombo()
     {
+        //Early exit if any key hasn't been hit yet
+        if (string.IsNullOrEmpty(currentTypedSequence)) return;
 
         foreach (ComboSequence comboSequence in comboSequences)
         {
@@ -117,7 +129,7 @@ public class ComboSystem : MonoBehaviour
                 // Combo matched, reset sequence
                 currentTypedSequence = "";
                 currentIndex = 0;
-                ExecuteCombo(comboSequence.Id);
+                ExecuteCombo(comboSequence);
                 return;
             }
         }
@@ -134,28 +146,33 @@ public class ComboSystem : MonoBehaviour
             }
         }
 
-
         // If no combo or partial combo matched, reset sequence
         currentTypedSequence = "";
         currentIndex = 0;
 
+        FailCombos();
+    }
+
+    private void FailCombos()
+    {
         foreach (ComboSequence comboSequence in comboSequences)
         {
-            comboSequence.EndCombo(); 
-            //FailCombo();
+            FailCombo(comboSequence);
         }
     }
 
-    private void ExecuteCombo(string combo)
+    private void ExecuteCombo(ComboSequence comboSequence)
     {
         // Implement the effect of the combo
-        Debug.Log(combo);
+        comboSequence.PlaySuccessAnimation();
+        comboSequence.EndCombo();
         pointSystem.ReceivePoints(100f);
     }
 
-    public void FailCombo()
+    public void FailCombo(ComboSequence comboSequence)
     {
-        // Implement what happens
-        Debug.Log("Fail");
+        comboSequence.EndCombo();
+        //TODO play audio
+        canvasToShake.ShakeCanvas();
     }
 }

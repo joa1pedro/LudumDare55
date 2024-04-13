@@ -27,13 +27,16 @@ public class ComboSequence : MonoBehaviour
         this.currentComboindex = -1 ;
     }
 
-    public void Initialize(string comboName, SpriteAtlas atlas)
+    public void Initialize(string comboName, SpriteAtlas normalKeyAtlas, SpriteAtlas pressedKeyAtlas)
     {
         Id = comboName;
         int i = 0;
         foreach (ComboPiece piece in comboPieces)
         {
-            piece.SetSprite(atlas.GetSprite(comboName[i].ToString()));
+            var comboString = comboName[i].ToString();
+            var comboStringPressed = string.Concat("pressed_", comboString);
+            piece.SetSprite(normalKeyAtlas.GetSprite(comboString));
+            piece.SetPressedSprite(pressedKeyAtlas.GetSprite(comboStringPressed));
             piece.Index = i;
             i++;
         }
@@ -62,9 +65,8 @@ public class ComboSequence : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PlaySuccessAnimation()
     {
-        
+        this.ForwardCombo(this.Id.Length);
     }
 }

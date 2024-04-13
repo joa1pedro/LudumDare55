@@ -110,5 +110,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Index: 0
-  sprite: {fileID: 4062655822461470661}
+  currentSprite: {fileID: 4062655822461470661}
   Active: 0

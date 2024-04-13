@@ -214,82 +214,82 @@ TextureImporter:
     second: Keyboard Letters and Symbols_69
   - first:
       213: 4091218624039808963
-    second: Keyboard Letters and Symbols_70
+    second: pressed_A
   - first:
       213: 461988140111940979
-    second: Keyboard Letters and Symbols_71
+    second: pressed_B
   - first:
       213: -146808127016725577
-    second: Keyboard Letters and Symbols_72
+    second: pressed_C
   - first:
       213: -5622058524487270815
-    second: Keyboard Letters and Symbols_73
+    second: pressed_D
   - first:
       213: 3823145881913574723
-    second: Keyboard Letters and Symbols_74
+    second: pressed_E
   - first:
       213: 5401082568648363720
-    second: Keyboard Letters and Symbols_75
+    second: pressed_F
   - first:
       213: -1842030512180222064
-    second: Keyboard Letters and Symbols_76
+    second: pressed_G
   - first:
       213: -9132981546526902159
-    second: Keyboard Letters and Symbols_77
+    second: pressed_H
   - first:
       213: 5931848750657310225
-    second: Keyboard Letters and Symbols_78
+    second: pressed_I
   - first:
       213: -8112666114904800370
-    second: Keyboard Letters and Symbols_79
+    second: pressed_J
   - first:
       213: -2495766164836191286
-    second: Keyboard Letters and Symbols_80
+    second: pressed_K
   - first:
       213: -1651381542560842770
-    second: Keyboard Letters and Symbols_81
+    second: pressed_L
   - first:
       213: 2199982140710300514
-    second: Keyboard Letters and Symbols_82
+    second: pressed_M
   - first:
       213: 802676668381743686
-    second: Keyboard Letters and Symbols_83
+    second: pressed_N
   - first:
       213: -2902734860166519184
-    second: Keyboard Letters and Symbols_84
+    second: pressed_O
   - first:
       213: 8610578246002583686
-    second: Keyboard Letters and Symbols_85
+    second: pressed_P
   - first:
       213: -7887570810912317285
-    second: Keyboard Letters and Symbols_86
+    second: pressed_Q
   - first:
       213: 8378731019718038223
-    second: Keyboard Letters and Symbols_87
+    second: pressed_R
   - first:
       213: 2143275760777317715
-    second: Keyboard Letters and Symbols_88
+    second: pressed_S
   - first:
       213: -4104101004193063423
-    second: Keyboard Letters and Symbols_89
+    second: pressed_T
   - first:
       213: 5675506186938851617
-    second: Keyboard Letters and Symbols_90
+    second: pressed_U
   - first:
       213: -4081626459705900336
-    second: Keyboard Letters and Symbols_91
+    second: pressed_V
   - first:
       213: 925260337837208143
-    second: Keyboard Letters and Symbols_92
+    second: pressed_W
   - first:
       213: 2571525798200377700
-    second: Keyboard Letters and Symbols_93
+    second: pressed_X
   - first:
       213: 2286948727498317708
-    second: Keyboard Letters and Symbols_94
+    second: pressed_Y
   - first:
       213: -3408688422432208773
-    second: Keyboard Letters and Symbols_95
+    second: pressed_Z
   - first:
       213: 1198169597291676085
     second: Keyboard Letters and Symbols_96
@@ -1922,7 +1922,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_70
+      name: pressed_A
       rect:
         serializedVersion: 2
         x: 1
@@ -1943,7 +1943,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_71
+      name: pressed_B
       rect:
         serializedVersion: 2
         x: 17
@@ -1964,7 +1964,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_72
+      name: pressed_C
       rect:
         serializedVersion: 2
         x: 33
@@ -1985,7 +1985,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_73
+      name: pressed_D
       rect:
         serializedVersion: 2
         x: 49
@@ -2006,7 +2006,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_74
+      name: pressed_E
       rect:
         serializedVersion: 2
         x: 65
@@ -2027,7 +2027,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_75
+      name: pressed_F
       rect:
         serializedVersion: 2
         x: 81
@@ -2048,7 +2048,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_76
+      name: pressed_G
       rect:
         serializedVersion: 2
         x: 97
@@ -2069,7 +2069,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_77
+      name: pressed_H
       rect:
         serializedVersion: 2
         x: 113
@@ -2090,7 +2090,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_78
+      name: pressed_I
       rect:
         serializedVersion: 2
         x: 1
@@ -2111,7 +2111,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_79
+      name: pressed_J
       rect:
         serializedVersion: 2
         x: 17
@@ -2132,7 +2132,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_80
+      name: pressed_K
       rect:
         serializedVersion: 2
         x: 33
@@ -2153,7 +2153,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_81
+      name: pressed_L
       rect:
         serializedVersion: 2
         x: 49
@@ -2174,7 +2174,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_82
+      name: pressed_M
       rect:
         serializedVersion: 2
         x: 65
@@ -2195,7 +2195,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_83
+      name: pressed_N
       rect:
         serializedVersion: 2
         x: 81
@@ -2216,7 +2216,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_84
+      name: pressed_O
       rect:
         serializedVersion: 2
         x: 97
@@ -2237,7 +2237,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_85
+      name: pressed_P
       rect:
         serializedVersion: 2
         x: 113
@@ -2258,7 +2258,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_86
+      name: pressed_Q
       rect:
         serializedVersion: 2
         x: 1
@@ -2279,7 +2279,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_87
+      name: pressed_R
       rect:
         serializedVersion: 2
         x: 17
@@ -2300,7 +2300,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_88
+      name: pressed_S
       rect:
         serializedVersion: 2
         x: 33
@@ -2321,7 +2321,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_89
+      name: pressed_T
       rect:
         serializedVersion: 2
         x: 49
@@ -2342,7 +2342,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_90
+      name: pressed_U
       rect:
         serializedVersion: 2
         x: 65
@@ -2363,7 +2363,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_91
+      name: pressed_V
       rect:
         serializedVersion: 2
         x: 81
@@ -2384,7 +2384,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_92
+      name: pressed_W
       rect:
         serializedVersion: 2
         x: 97
@@ -2405,7 +2405,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_93
+      name: pressed_X
       rect:
         serializedVersion: 2
         x: 113
@@ -2426,7 +2426,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_94
+      name: pressed_Y
       rect:
         serializedVersion: 2
         x: 1
@@ -2447,7 +2447,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Keyboard Letters and Symbols_95
+      name: pressed_Z
       rect:
         serializedVersion: 2
         x: 17
