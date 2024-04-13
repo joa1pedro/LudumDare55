@@ -14,6 +14,8 @@ public class EnemyMover : MonoBehaviour
     [SerializeField] float maxSpawnTime = 3.0f;
 
     [SerializeField] float dyingPosition = -3.0f;
+    [SerializeField] List<float> laneyPositions;
+    [SerializeField] float lanexPosition;
 
 
     private List<GameObject> enemies = new List<GameObject>();  // List to track all enemies
@@ -21,7 +23,10 @@ public class EnemyMover : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(SpawnEnemyRepeatedly());
+        foreach (float yPos in laneyPositions)
+        {
+            StartCoroutine(SpawnEnemyRepeatedly(yPos));
+        }
     }
 
     void Update()
@@ -46,19 +51,20 @@ public class EnemyMover : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnEnemyRepeatedly()
+    IEnumerator SpawnEnemyRepeatedly(float yPos)
     {
         while (true)  // Infinite loop to keep spawning enemies
         {
             yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));  // Wait for a random time between 3 and 6 seconds
-            SpawnEnemy();
+            SpawnEnemy(yPos);
         }
     }
 
-    void SpawnEnemy()
+    void SpawnEnemy(float positionY)
     {
-        GameObject newEnemy = Instantiate(EnemyPrefab, EnemyContainer.transform);
-        newEnemy.SetActive(true);
-        enemies.Add(newEnemy);  // Add the new enemy to the list
+            Vector3 spawnPosition = new Vector3(lanexPosition, positionY, EnemyContainer.transform.position.z);
+            GameObject newEnemy = Instantiate(EnemyPrefab, spawnPosition, Quaternion.identity, EnemyContainer.transform);
+            newEnemy.SetActive(true);
+            enemies.Add(newEnemy);
     }
 }
