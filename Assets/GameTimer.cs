@@ -31,6 +31,7 @@ public class GameTimer : MonoBehaviour
     {
         int minutes = (int)(time / 60);
         int seconds = (int)(time % 60);
-        return string.Format("{0:00}:{1:00}", minutes, seconds);
+        int milliseconds = (int)((time * 1000) % 1000);
+        return string.Format("{0:00}:{1:00}:{2:000}", minutes, seconds, milliseconds);
     }
 }
