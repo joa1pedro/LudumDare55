@@ -19,6 +19,13 @@ public class ComboSystem : MonoBehaviour
     [Header("Combo Related Stuff")]
     [SerializeField] List<ComboSequence> comboSequences = new List<ComboSequence>();
 
+    [Header("Golem Object")]
+    [SerializeField] GameObject golemPrefab;
+    [Header("Golem Spawn's Position")]
+    [SerializeField] Vector3 golemSpawnPosition;
+    [Header("Golem Spawn's Parent")]
+    [SerializeField] Canvas golemParent;
+
     // Privates
     private string currentTypedSequence = "";
     private float lastInputTime = 0f;
@@ -167,6 +174,8 @@ public class ComboSystem : MonoBehaviour
         comboSequence.PlaySuccessAnimation();
         comboSequence.EndCombo();
         pointSystem.ReceivePoints(100f);
+        // TODO select golem by combo. Its spawning in center the same golem.
+        SpawnGolem();
     }
 
     public void FailCombo(ComboSequence comboSequence)
@@ -174,5 +183,11 @@ public class ComboSystem : MonoBehaviour
         comboSequence.EndCombo();
         //TODO play audio
         canvasToShake.ShakeCanvas();
+    }
+
+    public void SpawnGolem()
+    {
+        GameObject golem = Instantiate(golemPrefab, golemParent.transform, false);
+        golem.transform.localPosition = golemSpawnPosition;
     }
 }
