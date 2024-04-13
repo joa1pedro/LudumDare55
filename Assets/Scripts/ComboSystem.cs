@@ -8,6 +8,7 @@ public class ComboSystem : MonoBehaviour
     [SerializeField] List<ComboSequence> comboSequences = new List<ComboSequence>();
     [SerializeField] SpriteAtlas atlas = default;
     [SerializeField] GameObject sequencesContainer;
+    [SerializeField] PointSystem pointSystem;
 
     private string currentTypedSequence = "";
     private float lastInputTime = 0f;
@@ -149,6 +150,7 @@ public class ComboSystem : MonoBehaviour
     {
         // Implement the effect of the combo
         Debug.Log(combo);
+        pointSystem.ReceivePoints(100f);
     }
 
     public void FailCombo()
