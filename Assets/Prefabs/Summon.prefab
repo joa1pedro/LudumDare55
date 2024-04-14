@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7224662767167925234}
   - component: {fileID: 1674204940061330571}
   - component: {fileID: 251077867564134878}
+  - component: {fileID: 5584926930354645460}
   m_Layer: 0
   m_Name: Summon
   m_TagString: Untagged
@@ -110,4 +111,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 868e3de52ed49c948984ca33336d7269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyController: {fileID: 0}
   animator: {fileID: 1674204940061330571}
+--- !u!114 &5584926930354645460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8440342328721011767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
