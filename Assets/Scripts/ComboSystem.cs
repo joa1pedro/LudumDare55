@@ -19,6 +19,9 @@ public class ComboSystem : MonoBehaviour
     [Header("VFX Controller Reference")]
     [SerializeField] VFXController vfxController;
 
+    [Header("Audio Manager Reference")]
+    [SerializeField] AudioManager audioManager;
+
     [Header("Combo Related Stuff")]
     [SerializeField] GameObject comboSequencesHolder;
 
@@ -161,6 +164,7 @@ public class ComboSystem : MonoBehaviour
 
     private void FailCombos()
     {
+        audioManager.PlaySound(0);
         foreach (ComboSequence comboSequence in comboSequences)
         {
             FailCombo(comboSequence);
