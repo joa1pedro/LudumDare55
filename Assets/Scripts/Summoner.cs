@@ -3,10 +3,12 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
+
 public class Summoner : MonoBehaviour
 {
     [SerializeField] public int HP = 100;
     [SerializeField] Text hpText;
+    [SerializeField] GameObject defeatScreen;
 
     void Start()
     {
@@ -17,12 +19,18 @@ public class Summoner : MonoBehaviour
     {
         HP -= damage;
         UpdateHPText();
-        if (HP <= 0)
+        if (HP <= 90)
         {
             // TODO END GAME
+            defeatScreen.SetActive(true);
             Debug.Log("Summoner has been defeated!");
-            SceneManager.LoadScene("Menu");
+            Invoke("ReturnMenu", 2.0f);
         }
+    }
+
+    public void ReturnMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 
     void UpdateHPText()
