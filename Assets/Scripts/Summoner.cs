@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class Summoner : MonoBehaviour
 {
@@ -19,6 +21,7 @@ public class Summoner : MonoBehaviour
         {
             // TODO END GAME
             Debug.Log("Summoner has been defeated!");
+            SceneManager.LoadScene("Menu");
         }
     }
 
