@@ -178,6 +178,7 @@ public class ComboSystem : MonoBehaviour
         comboSequence.EndCombo();
 
         summoningController.PerformSummon(comboIndex);
+        audioManager.PlaySound(0);
     }
 
     public void FailCombo(ComboSequence comboSequence)
