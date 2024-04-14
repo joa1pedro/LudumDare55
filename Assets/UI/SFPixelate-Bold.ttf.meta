@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5a2a735ecd69a8846a76cec36be61df1
+guid: b96c1286c034f3840941a263be76e34c
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,10 +9,10 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Pixel-Art
+  - SF Pixelate
   fallbackFontReferences: []
   customCharacters: 
-  fontRenderingMode: 0
+  fontRenderingMode: 3
   ascentCalculationMode: 1
   useLegacyBoundsCalculation: 0
   shouldRoundAdvanceValue: 1
