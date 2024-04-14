@@ -56,7 +56,7 @@ public class EnemyController : MonoBehaviour
         while (true)
         {
             if (summoner.GameEnded) break;
-            yield return new WaitForSeconds(Random.Range(3.0f, 6.0f));
+            yield return new WaitForSeconds(Random.Range(4.0f, 7.0f));
             SpawnEnemy(laneIndex);
         }
     }
