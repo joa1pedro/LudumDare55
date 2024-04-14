@@ -6,6 +6,8 @@ using UnityEngine.U2D;
 
 public class ComboSystem : MonoBehaviour
 {
+    public bool GameEnded = false;
+
     [Header("Atlases")]
     [SerializeField] SpriteAtlas normalKeyAtlas = default; 
     [SerializeField] SpriteAtlas pressedKeyAtlas = default;
@@ -13,11 +15,11 @@ public class ComboSystem : MonoBehaviour
     [Header("Canvas Shake Reference")]
     [SerializeField] CanvasShaker canvasToShake;
 
+    [Header("SummonerReference")]
+    [SerializeField] Summoner summoner;
+
     [Header("Summons Controller Reference")]
     [SerializeField] SummoningController summoningController;
-
-    [Header("VFX Controller Reference")]
-    [SerializeField] VFXController vfxController;
 
     [Header("Audio Manager Reference")]
     [SerializeField] AudioManager audioManager;
@@ -51,6 +53,7 @@ public class ComboSystem : MonoBehaviour
 
     void Update()
     {
+        if (GameEnded) return;
         if (Time.time - lastInputTime > comboTimeout)
         {
             currentTypedSequence = ""; // Reset the sequence if too much time has passed

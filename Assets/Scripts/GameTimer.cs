@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class GameTimer : MonoBehaviour
 {
     [SerializeField] Text timerText;
+    [SerializeField] Summoner summoner;
 
     private float startTime;
     private float elapsedTime;
@@ -15,6 +16,7 @@ public class GameTimer : MonoBehaviour
 
     private void Update()
     {
+        if (summoner.GameEnded) return;
         elapsedTime = Time.time - startTime;
         UpdateTimerText();
     }

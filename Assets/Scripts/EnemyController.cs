@@ -41,6 +41,7 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+        if (summoner.GameEnded) return;
         // Check if it's time to increase speed
         speedIncreaseTimer += Time.deltaTime;
         if (speedIncreaseTimer >= timeToIncreaseSpeed && currentSpeed < maxSpeed)
@@ -54,6 +55,7 @@ public class EnemyController : MonoBehaviour
     {
         while (true)
         {
+            if (summoner.GameEnded) break;
             yield return new WaitForSeconds(Random.Range(3.0f, 6.0f));
             SpawnEnemy(laneIndex);
         }
@@ -61,6 +63,7 @@ public class EnemyController : MonoBehaviour
 
     void SpawnEnemy(int laneIndex)
     {
+        if (summoner.GameEnded) return;
         float positionY = laneyPositions[laneIndex];
         Vector3 spawnPosition = new Vector3(lanexPosition, positionY, EnemyContainer.transform.position.z);
         GameObject newEnemyGameObject = Instantiate(EnemyPrefab, spawnPosition, Quaternion.identity, EnemyContainer.transform);
@@ -75,6 +78,7 @@ public class EnemyController : MonoBehaviour
     // Does not give points
     public void RemoveEnemy(LaneEnemy laneEnemy)
     {
+        if (summoner.GameEnded) return;
         summoner.ReduceHP(10);
         LaneEnemies.Remove(laneEnemy);
     }
@@ -82,11 +86,13 @@ public class EnemyController : MonoBehaviour
     //Method called to remove from the list in case enemy has been killed
     public void KillEnemy(LaneEnemy laneEnemy)
     {
+        if (summoner.GameEnded) return;
         LaneEnemies.Remove(laneEnemy);
     }
 
     public void StartKillEnemy(LaneEnemy laneEnemy)
     {
+        if (summoner.GameEnded) return;
         pointSystem.ReceivePoints(laneEnemy.PointsFromKilling);
         audioManager.PlaySoundEnemyDied();
     }
