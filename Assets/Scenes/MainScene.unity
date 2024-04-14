@@ -935,7 +935,7 @@ AudioSource:
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
-  Mute: 0
+  Mute: 1
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -1622,6 +1622,7 @@ MonoBehaviour:
   - -160
   - -240
   lanexPosition: 540
+  enemies: []
 --- !u!1 &954777532
 GameObject:
   m_ObjectHideFlags: 0

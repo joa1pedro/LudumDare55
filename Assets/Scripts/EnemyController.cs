@@ -2,19 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaneEnemy
-{
-    public GameObject EnemyObject;
-    public int LaneIndex;  // Store the index of the lane
-    public Animator Animator;
-
-    public LaneEnemy(GameObject enemyObject, int laneIndex)
-    {
-        EnemyObject = enemyObject;
-        LaneIndex = laneIndex;
-        Animator = enemyObject.GetComponent<Animator>();
-    }
-}
 
 public class EnemyController : MonoBehaviour
 {
@@ -22,7 +9,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] GameObject EnemyContainer;
     [SerializeField] List<float> laneyPositions;
     [SerializeField] float lanexPosition;
-    public List<LaneEnemy> enemies = new List<LaneEnemy>();  // List to track all enemies along with their lanes
+    
+    public List<LaneEnemy> LaneEnemies = new List<LaneEnemy>(); 
 
     void Start()
     {
@@ -34,20 +22,27 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator SpawnEnemyRepeatedly(int laneIndex)
     {
-        while (true)  // Infinite loop to keep spawning enemies
+        while (true)  
         {
-            yield return new WaitForSeconds(Random.Range(3.0f, 6.0f));  // Wait for a random time
+            yield return new WaitForSeconds(Random.Range(3.0f, 6.0f));
             SpawnEnemy(laneIndex);
         }
     }
 
     void SpawnEnemy(int laneIndex)
     {
-        float positionY = laneyPositions[laneIndex];  // Retrieve the position using the index
+        float positionY = laneyPositions[laneIndex];
         Vector3 spawnPosition = new Vector3(lanexPosition, positionY, EnemyContainer.transform.position.z);
-        GameObject newEnemy = Instantiate(EnemyPrefab, spawnPosition, Quaternion.identity, EnemyContainer.transform);
-        newEnemy.SetActive(true);
-        LaneEnemy laneEnemy = new LaneEnemy(newEnemy, laneIndex);  // Pass the index to the constructor
-        enemies.Add(laneEnemy);
+        GameObject newEnemyGameObject = Instantiate(EnemyPrefab, spawnPosition, Quaternion.identity, EnemyContainer.transform);
+
+        newEnemyGameObject.SetActive(true);
+        LaneEnemy newLaneEnemy = newEnemyGameObject.GetComponent<LaneEnemy>();
+        newLaneEnemy.Initialize(laneIndex, this);
+        LaneEnemies.Add(newLaneEnemy);
+    }
+
+    public void RemoveEnemy(LaneEnemy laneEnemy)
+    {
+        LaneEnemies.Remove(laneEnemy);
     }
 }

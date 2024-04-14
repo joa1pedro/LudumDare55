@@ -4,17 +4,9 @@ using UnityEngine;
 
 public class Summon : MonoBehaviour
 {
-    private EnemyController enemyController;
-    void Start()
-    {
-        enemyController = FindObjectOfType<EnemyController>(); // Ensure there is only one EnemyMover in the scene
-        if (enemyController == null)
-        {
-            Debug.LogError("EnemyMover not found in the scene!");
-        }
-    }
-
+    [SerializeField] EnemyController enemyController;
     [SerializeField] Animator animator = default;
+
     bool IsEnabled = false;
     private int LaneIndex = -1;
 
@@ -40,20 +32,19 @@ public class Summon : MonoBehaviour
 
     public void Attack()
     {
-        Debug.Log("Golem Attack!");
         animator.Play("GolemAttack");
-        Debug.Log(this.LaneIndex);
         if (enemyController != null)
         {
-            foreach (var enemy in enemyController.enemies)
+            foreach (var enemy in enemyController.LaneEnemies)
             {
-                Debug.Log(enemy.LaneIndex);
                 if (enemy.LaneIndex == this.LaneIndex)
                 {
+                    //Play Animation
                     enemy.Animator.Play("SkeletonDie");
-                    Debug.Log($"Destruiu Inimigo na Lane {this.LaneIndex}");
-                    enemy.EnemyObject.GetComponent<Enemy>().StopWalk();
-                    enemyController.enemies.Remove(enemy);
+                    enemy.StopWalk();
+
+                    //Remove from the Controller
+                    enemyController.RemoveEnemy(enemy);
                     break;
                 }
             }

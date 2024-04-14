@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5424723186122454087}
   - component: {fileID: 5555104865465235786}
   - component: {fileID: 3277662361280847788}
-  - component: {fileID: -784872483827635842}
+  - component: {fileID: 2038628897967506309}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -98,7 +98,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-784872483827635842
+--- !u!114 &2038628897967506309
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,8 +107,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1872644643531518200}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bbcc6220c20c0244bcf64a0700e6c9c, type: 3}
+  m_Script: {fileID: 11500000, guid: 96172e2f4c420c943a4408857ed4cdef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 100
-  dyingPosition: -200
+  LaneIndex: 0
+  Speed: 100
+  dyingPosition: -300
+  Animator: {fileID: 3277662361280847788}
