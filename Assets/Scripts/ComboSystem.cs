@@ -19,8 +19,12 @@ public class ComboSystem : MonoBehaviour
     [Header("Summons Controller Reference")]
     [SerializeField] SummoningController summoningController;
 
+    [Header("VFX Controller Reference")]
+    [SerializeField] VFXController vfxController;
+
     [Header("Combo Related Stuff")]
     [SerializeField] GameObject comboSequencesHolder;
+
 
     private List<ComboSequence> comboSequences = new List<ComboSequence> ();
 
