@@ -1,19 +1,22 @@
 fileFormatVersion: 2
-guid: 37348c951ed64dc43af1d077d7cff663
+guid: 21dfccb30e7b1f943adf1df25e46d9d8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2024725417289037130
-    second: MorganaIdle_0
+      213: -1543669040578682283
+    second: morgana-Sheet-export-Sheet-export_0
   - first:
-      213: -6327860236584667393
-    second: MorganaIdle_1
+      213: -2639826349233385803
+    second: morgana-Sheet-export-Sheet-export_1
   - first:
-      213: -5945842310258131691
-    second: MorganaIdle_2
+      213: -3527334505758712723
+    second: morgana-Sheet-export-Sheet-export_2
   - first:
-      213: 2602519983426727674
-    second: MorganaIdle_3
+      213: 2464433595915032057
+    second: morgana-Sheet-export-Sheet-export_3
+  - first:
+      213: -8057246548359637272
+    second: morgana-Sheet-export-Sheet-export_4
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -116,7 +119,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MorganaIdle_0
+      name: morgana-Sheet-export-Sheet-export_0
       rect:
         serializedVersion: 2
         x: 0
@@ -130,14 +133,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a45b7312a05491c10800000000000000
-      internalID: 2024725417289037130
+      spriteID: 5522a81bf29c39ae0800000000000000
+      internalID: -1543669040578682283
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MorganaIdle_1
+      name: morgana-Sheet-export-Sheet-export_1
       rect:
         serializedVersion: 2
         x: 80
@@ -151,14 +154,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff63d0a24acee28a0800000000000000
-      internalID: -6327860236584667393
+      spriteID: 5be4a39fbe37d5bd0800000000000000
+      internalID: -2639826349233385803
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MorganaIdle_2
+      name: morgana-Sheet-export-Sheet-export_2
       rect:
         serializedVersion: 2
         x: 160
@@ -172,14 +175,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 51d7396dbef1c7da0800000000000000
-      internalID: -5945842310258131691
+      spriteID: d6c1644a4f36c0fc0800000000000000
+      internalID: -3527334505758712723
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MorganaIdle_3
+      name: morgana-Sheet-export-Sheet-export_3
       rect:
         serializedVersion: 2
         x: 240
@@ -193,8 +196,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: afe610dd2220e1420800000000000000
-      internalID: 2602519983426727674
+      spriteID: 9f5dd016c4d633220800000000000000
+      internalID: 2464433595915032057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: morgana-Sheet-export-Sheet-export_4
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e6184114f8ee2090800000000000000
+      internalID: -8057246548359637272
       vertices: []
       indices: 
       edges: []
