@@ -45,6 +45,12 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySoundExecuteCombo()
     {
+        if (executeComboAudios != null && executeComboAudios.Count > 0)
+        {
+            int randomIndex = random.Next(0, executeComboAudios.Count);
+            audioSource.PlayOneShot(executeComboAudios[randomIndex]);
+        }
+
         if (summonAudios != null && summonAudios.Count > 0)
         {
             int randomIndex = random.Next(0, summonAudios.Count);

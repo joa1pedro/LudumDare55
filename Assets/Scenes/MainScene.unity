@@ -3598,9 +3598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   executeComboAudios:
-  - {fileID: 8300000, guid: c1a9afb839b8ec54292455383a58ab1b, type: 3}
   - {fileID: 8300000, guid: ab6dcdcf60077f0409dae2380b5ef1d6, type: 3}
-  - {fileID: 8300000, guid: 5f75c14f9a40d8440b8fdf4c0783c1d2, type: 3}
   failComboAudios:
   - {fileID: 8300000, guid: 0a61439adcc960c4f8bde3b6be6df199, type: 3}
   destroyEnemyAudios:
