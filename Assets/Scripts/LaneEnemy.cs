@@ -7,15 +7,16 @@ public class LaneEnemy : MonoBehaviour
 
     public int LaneIndex;  // Store the index of the lane
     public int PointsFromKilling = 100;
-    [SerializeField] private float Speed = 200.0f;
+    private float Speed = 200.0f;
     [SerializeField] private float dyingPosition = -300.0f;
     [SerializeField] public Animator Animator;
 
     private bool walk = true;
     private EnemyController MyEnemyController;
 
-    public void Initialize(int laneIndex, EnemyController myController)
+    public void Initialize(int laneIndex, float speed, EnemyController myController)
     {
+        this.Speed = speed;
         this.LaneIndex = laneIndex;
         this.Animator = this.GetComponent<Animator>();
         MyEnemyController = myController;

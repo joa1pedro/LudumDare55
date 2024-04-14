@@ -24,11 +24,29 @@ public class EnemyController : MonoBehaviour
 
     public List<LaneEnemy> LaneEnemies = new List<LaneEnemy>();
 
+    // Timer setup for periodic speed increase
+    [SerializeField] float speedIncreaseTimer = 0.0f;
+    [SerializeField] float timeToIncreaseSpeed = 5.0f;
+    [SerializeField] float speedIncrement = 20.0f;
+    [SerializeField] float maxSpeed = 1000.0f;
+    [SerializeField] float currentSpeed = 80.0f;
+
     void Start()
     {
         for (int i = 0; i < laneyPositions.Count; i++)
         {
             StartCoroutine(SpawnEnemyRepeatedly(i));
+        }
+    }
+
+    void Update()
+    {
+        // Check if it's time to increase speed
+        speedIncreaseTimer += Time.deltaTime;
+        if (speedIncreaseTimer >= timeToIncreaseSpeed && currentSpeed < maxSpeed)
+        {
+            currentSpeed = Mathf.Min(currentSpeed + speedIncrement, maxSpeed);
+            speedIncreaseTimer = 0;  // Reset the timer
         }
     }
 
@@ -49,7 +67,7 @@ public class EnemyController : MonoBehaviour
 
         newEnemyGameObject.SetActive(true);
         LaneEnemy newLaneEnemy = newEnemyGameObject.GetComponent<LaneEnemy>();
-        newLaneEnemy.Initialize(laneIndex, this);
+        newLaneEnemy.Initialize(laneIndex, currentSpeed, this);
         LaneEnemies.Add(newLaneEnemy);
     }
 
