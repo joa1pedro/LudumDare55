@@ -8,6 +8,6 @@ public class SummoningController : MonoBehaviour
 
     public void PerformSummon(int index)
     {
-        Summons[index].SummonSelf();
+        Summons[index].SummonSelf(index);
     }
 }

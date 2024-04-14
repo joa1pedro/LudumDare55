@@ -717,11 +717,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 80
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 80
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_LocalPosition.x
@@ -753,11 +753,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -19
+      value: -15
       objectReference: {fileID: 0}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -125
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -771,6 +771,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7224662767167925234, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 075dd2904971989488ba79cef46c982d, type: 3}
     - target: {fileID: 8440342328721011767, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_Name
       value: Summon 3
@@ -834,17 +838,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 564219474897319168, guid: c750988aeec29064ca3ffabff6940b48, type: 3}
   m_PrefabInstance: {fileID: 564219475428285605}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &551430567 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 564219474897319170, guid: c750988aeec29064ca3ffabff6940b48, type: 3}
-  m_PrefabInstance: {fileID: 564219475428285605}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 564219475428285606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f07c11c38420c5418e9ec986b636f9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &583738599
 GameObject:
   m_ObjectHideFlags: 0
@@ -1624,11 +1617,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyPrefab: {fileID: 1872644643531518200, guid: 9892f27189078ea4caadc38435aabc6b, type: 3}
   EnemyContainer: {fileID: 274331844}
-  Summoner: {fileID: 551430567}
-  Speed: 200
-  minSpawnTime: 3
-  maxSpawnTime: 6
-  dyingPosition: -250
   laneyPositions:
   - -80
   - -160
@@ -2007,11 +1995,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 80
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 80
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2043,11 +2031,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -16
+      value: -15
       objectReference: {fileID: 0}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2061,6 +2049,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7224662767167925234, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 075dd2904971989488ba79cef46c982d, type: 3}
     - target: {fileID: 8440342328721011767, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_Name
       value: Summon 2
@@ -2720,11 +2712,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 80
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 80
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2760,7 +2752,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 42
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2772,6 +2764,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224662767167925234, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224662767167925234, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 075dd2904971989488ba79cef46c982d, type: 3}
+    - target: {fileID: 7224662767167925234, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
+      propertyPath: m_Maskable
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8440342328721011767, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
