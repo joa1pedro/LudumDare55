@@ -19,7 +19,10 @@ public class EnemyController : MonoBehaviour
     [Header("Summoner for reduging HP")]
     [SerializeField] Summoner summoner;
 
-    public List<LaneEnemy> LaneEnemies = new List<LaneEnemy>(); 
+    [Header("Audio Manager Reference")]
+    [SerializeField] AudioManager audioManager;
+
+    public List<LaneEnemy> LaneEnemies = new List<LaneEnemy>();
 
     void Start()
     {
@@ -31,7 +34,7 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator SpawnEnemyRepeatedly(int laneIndex)
     {
-        while (true)  
+        while (true)
         {
             yield return new WaitForSeconds(Random.Range(3.0f, 6.0f));
             SpawnEnemy(laneIndex);
@@ -61,7 +64,12 @@ public class EnemyController : MonoBehaviour
     //Method called to remove from the list in case enemy has been killed
     public void KillEnemy(LaneEnemy laneEnemy)
     {
-        pointSystem.ReceivePoints(laneEnemy.PointsFromKilling);
         LaneEnemies.Remove(laneEnemy);
+    }
+
+    public void StartKillEnemy(LaneEnemy laneEnemy)
+    {
+        pointSystem.ReceivePoints(laneEnemy.PointsFromKilling);
+        audioManager.PlaySoundEnemyDied();
     }
 }

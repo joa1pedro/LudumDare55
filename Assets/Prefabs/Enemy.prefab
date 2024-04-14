@@ -112,6 +112,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneIndex: 0
   PointsFromKilling: 100
-  Speed: 500
+  Speed: 100
   dyingPosition: -300
   Animator: {fileID: 3277662361280847788}
