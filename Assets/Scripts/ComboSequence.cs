@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class ComboSequence : MonoBehaviour
 {
     [SerializeField] List<ComboPiece> comboPieces = new List<ComboPiece>();
+    [SerializeField] Star StarsEffect;
 
     public string Id = string.Empty;
 
@@ -67,6 +68,7 @@ public class ComboSequence : MonoBehaviour
 
     public void PlaySuccessAnimation()
     {
+        StarsEffect.PlayStarAnimation();
         this.ForwardCombo(this.Id.Length);
     }
 }
