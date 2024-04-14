@@ -1626,6 +1626,8 @@ MonoBehaviour:
   - -160
   - -240
   lanexPosition: 540
+  pointSystem: {fileID: 850508736}
+  summoner: {fileID: 564219475428285610}
   LaneEnemies: []
 --- !u!1 &954777532
 GameObject:
@@ -2157,7 +2159,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalKeyAtlas: {fileID: 4343727234628468602, guid: 090a350e384ad1d46b994d70e801b78e, type: 2}
   pressedKeyAtlas: {fileID: 4343727234628468602, guid: 7e892f34a630a834cb3be36bc0b2b840, type: 2}
-  pointSystem: {fileID: 850508736}
   canvasToShake: {fileID: 954777535}
   summoningController: {fileID: 784798299}
   vfxController: {fileID: 583738601}
@@ -2942,6 +2943,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &564219475428285610 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 564219474897319170, guid: c750988aeec29064ca3ffabff6940b48, type: 3}
+  m_PrefabInstance: {fileID: 564219475428285605}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564219475428285606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f07c11c38420c5418e9ec986b636f9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4093615929447144682
 PrefabInstance:
   m_ObjectHideFlags: 0
