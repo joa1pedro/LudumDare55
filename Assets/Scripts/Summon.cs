@@ -42,9 +42,6 @@ public class Summon : MonoBehaviour
                     //Play Animation
                     enemy.Animator.Play("SkeletonDie");
                     enemy.StopWalk();
-
-                    //Remove from the Controller
-                    enemyController.RemoveEnemy(enemy);
                     break;
                 }
             }

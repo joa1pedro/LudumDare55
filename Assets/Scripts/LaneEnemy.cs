@@ -6,6 +6,7 @@ public class LaneEnemy : MonoBehaviour
 {
 
     public int LaneIndex;  // Store the index of the lane
+    public int PointsFromKilling = 100;
     [SerializeField] private float Speed = 200.0f;
     [SerializeField] private float dyingPosition = -300.0f;
     [SerializeField] public Animator Animator;
@@ -28,7 +29,7 @@ public class LaneEnemy : MonoBehaviour
             if (transform.position.x <= dyingPosition)
             {
                 // Self-destruct when crossing the threshold
-                Killed();
+                AutoDestroy();
             }
         }
     }
@@ -39,6 +40,12 @@ public class LaneEnemy : MonoBehaviour
     }
 
     public void Killed()
+    {
+        MyEnemyController.KillEnemy(this);
+        Destroy(gameObject);
+    }
+
+    public void AutoDestroy()
     {
         MyEnemyController.RemoveEnemy(this);
         Destroy(gameObject);

@@ -687,6 +687,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 784798298}
     m_Modifications:
+    - target: {fileID: 251077867564134878, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
+      propertyPath: enemyController
+      value: 
+      objectReference: {fileID: 905804120}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1050,7 +1054,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -110, y: -90}
+  m_AnchoredPosition: {x: -973, y: -643}
   m_SizeDelta: {x: 239.6904, y: 54.4213}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &651019899
@@ -1368,7 +1372,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 850508734}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -448, y: 270, z: -303.03125}
+  m_LocalPosition: {x: 351, y: 263, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 972300214}
@@ -1622,7 +1626,7 @@ MonoBehaviour:
   - -160
   - -240
   lanexPosition: 540
-  enemies: []
+  LaneEnemies: []
 --- !u!1 &954777532
 GameObject:
   m_ObjectHideFlags: 0
@@ -1729,7 +1733,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 972300213}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 303.03125}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 850508735}
@@ -1737,7 +1741,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 17, y: 4}
+  m_AnchoredPosition: {x: 17, y: 0}
   m_SizeDelta: {x: 239.6904, y: 54.4213}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &972300215
@@ -1966,6 +1970,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 784798298}
     m_Modifications:
+    - target: {fileID: 251077867564134878, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
+      propertyPath: enemyController
+      value: 
+      objectReference: {fileID: 905804120}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2621,7 +2629,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1915852178}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 303.03125}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 850508735}
@@ -2629,7 +2637,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 136, y: -10}
+  m_AnchoredPosition: {x: 136, y: 0}
   m_SizeDelta: {x: 239.6904, y: 54.4213}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1915852180
@@ -2665,9 +2673,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '000
-
-'
+  m_Text: 2000
 --- !u!222 &1915852181
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2683,6 +2689,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 784798298}
     m_Modifications:
+    - target: {fileID: 251077867564134878, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
+      propertyPath: enemyController
+      value: 
+      objectReference: {fileID: 905804120}
     - target: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

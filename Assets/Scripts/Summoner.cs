@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class Summoner : MonoBehaviour
 {
-    public int HP = 100;
-    public Text hpText;
+    [SerializeField] public int HP = 100;
+    [SerializeField] Text hpText;
 
     void Start()
     {
@@ -17,6 +17,7 @@ public class Summoner : MonoBehaviour
         UpdateHPText();
         if (HP <= 0)
         {
+            // TODO END GAME
             Debug.Log("Summoner has been defeated!");
         }
     }

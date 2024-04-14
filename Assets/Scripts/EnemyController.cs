@@ -2,14 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] GameObject EnemyPrefab;
     [SerializeField] GameObject EnemyContainer;
+
+    [Header("Lane Y Position")]
     [SerializeField] List<float> laneyPositions;
+
+    [Header("Lane X Position")]
     [SerializeField] float lanexPosition;
-    
+
+    [Header("Point System Reference")]
+    [SerializeField] PointSystem pointSystem;
+
+    [Header("Summoner for reduging HP")]
+    [SerializeField] Summoner summoner;
+
     public List<LaneEnemy> LaneEnemies = new List<LaneEnemy>(); 
 
     void Start()
@@ -41,8 +50,18 @@ public class EnemyController : MonoBehaviour
         LaneEnemies.Add(newLaneEnemy);
     }
 
+    //Method called to remove from the list in case enemy passes the lane without dying
+    // Does not give points
     public void RemoveEnemy(LaneEnemy laneEnemy)
     {
+        summoner.ReduceHP(10);
+        LaneEnemies.Remove(laneEnemy);
+    }
+
+    //Method called to remove from the list in case enemy has been killed
+    public void KillEnemy(LaneEnemy laneEnemy)
+    {
+        pointSystem.ReceivePoints(laneEnemy.PointsFromKilling);
         LaneEnemies.Remove(laneEnemy);
     }
 }

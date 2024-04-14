@@ -10,9 +10,6 @@ public class ComboSystem : MonoBehaviour
     [SerializeField] SpriteAtlas normalKeyAtlas = default; 
     [SerializeField] SpriteAtlas pressedKeyAtlas = default;
 
-    [Header("Point System Reference")]
-    [SerializeField] PointSystem pointSystem;
-
     [Header("Canvas Shake Reference")]
     [SerializeField] CanvasShaker canvasToShake;
 
@@ -175,7 +172,6 @@ public class ComboSystem : MonoBehaviour
         // Implement the effect of the combo
         comboSequence.PlaySuccessAnimation();
         comboSequence.EndCombo();
-        pointSystem.ReceivePoints(100f);
 
         summoningController.PerformSummon(comboIndex);
     }
