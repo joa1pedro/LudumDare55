@@ -6,8 +6,6 @@ using UnityEngine.U2D;
 
 public class ComboSystem : MonoBehaviour
 {
-    public bool GameEnded = false;
-
     [Header("Atlases")]
     [SerializeField] SpriteAtlas normalKeyAtlas = default; 
     [SerializeField] SpriteAtlas pressedKeyAtlas = default;
@@ -53,7 +51,7 @@ public class ComboSystem : MonoBehaviour
 
     void Update()
     {
-        if (GameEnded) return;
+        if (summoner.GameEnded) return;
         if (Time.time - lastInputTime > comboTimeout)
         {
             currentTypedSequence = ""; // Reset the sequence if too much time has passed

@@ -67,7 +67,7 @@ public class EnemyController : MonoBehaviour
         float positionY = laneyPositions[laneIndex];
         Vector3 spawnPosition = new Vector3(lanexPosition, positionY, EnemyContainer.transform.position.z);
         GameObject newEnemyGameObject = Instantiate(EnemyPrefab, spawnPosition, Quaternion.identity, EnemyContainer.transform);
-
+        
         newEnemyGameObject.SetActive(true);
         LaneEnemy newLaneEnemy = newEnemyGameObject.GetComponent<LaneEnemy>();
         newLaneEnemy.Initialize(laneIndex, currentSpeed, this);

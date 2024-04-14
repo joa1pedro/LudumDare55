@@ -16,18 +16,6 @@ public class AudioManager : MonoBehaviour
 
     private System.Random random = new System.Random();
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
     public void PlaySoundSummon()
     {
         if (summonAudios != null && summonAudios.Count > 0)

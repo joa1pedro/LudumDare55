@@ -1938,7 +1938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyPrefab: {fileID: 1872644643531518200, guid: 9892f27189078ea4caadc38435aabc6b, type: 3}
-  EnemyContainer: {fileID: 274331844}
+  EnemyContainer: {fileID: 905804118}
   laneyPositions:
   - -80
   - -160
@@ -2740,7 +2740,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dacba9527664bcf4db2edf523af5bcc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameEnded: 0
   normalKeyAtlas: {fileID: 4343727234628468602, guid: 090a350e384ad1d46b994d70e801b78e, type: 2}
   pressedKeyAtlas: {fileID: 4343727234628468602, guid: 7e892f34a630a834cb3be36bc0b2b840, type: 2}
   canvasToShake: {fileID: 954777535}
@@ -3599,7 +3598,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   executeComboAudios:
-  - {fileID: 0}
+  - {fileID: 8300000, guid: c1a9afb839b8ec54292455383a58ab1b, type: 3}
+  - {fileID: 8300000, guid: ab6dcdcf60077f0409dae2380b5ef1d6, type: 3}
+  - {fileID: 8300000, guid: 5f75c14f9a40d8440b8fdf4c0783c1d2, type: 3}
   failComboAudios:
   - {fileID: 8300000, guid: 0a61439adcc960c4f8bde3b6be6df199, type: 3}
   destroyEnemyAudios:
@@ -4065,7 +4066,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 564219474897319170, guid: c750988aeec29064ca3ffabff6940b48, type: 3}
       propertyPath: HP
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 564219474897319170, guid: c750988aeec29064ca3ffabff6940b48, type: 3}
       propertyPath: hpText
