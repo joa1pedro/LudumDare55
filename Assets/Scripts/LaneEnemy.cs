@@ -39,6 +39,7 @@ public class LaneEnemy : MonoBehaviour
         walk = false;
     }
 
+    // Callback called by the Animation Clip
     public void Killed()
     {
         MyEnemyController.KillEnemy(this);

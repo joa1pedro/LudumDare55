@@ -10,10 +10,10 @@ public class Summon : MonoBehaviour
     bool IsEnabled = false;
     private int LaneIndex = -1;
 
+    // Callback called by the Animation Clip
     public void DeSummonSelf()
     {
         IsEnabled = false;
-        // PlayDeSummonAnimation()
         this.gameObject.SetActive(false);
     }
 

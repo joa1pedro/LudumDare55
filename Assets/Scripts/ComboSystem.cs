@@ -164,7 +164,7 @@ public class ComboSystem : MonoBehaviour
 
     private void FailCombos()
     {
-        audioManager.PlaySound(0);
+        audioManager.PlaySoundFailCombo();
         foreach (ComboSequence comboSequence in comboSequences)
         {
             FailCombo(comboSequence);
@@ -178,7 +178,7 @@ public class ComboSystem : MonoBehaviour
         comboSequence.EndCombo();
 
         summoningController.PerformSummon(comboIndex);
-        audioManager.PlaySound(0);
+        audioManager.PlaySoundExecuteCombo();
     }
 
     public void FailCombo(ComboSequence comboSequence)
