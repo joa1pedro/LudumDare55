@@ -21,7 +21,7 @@ SpriteAtlas:
       crunchedCompression: 0
       sRGB: 1
     platformSettings:
-    - serializedVersion: 3
+    - serializedVersion: 4
       m_BuildTarget: WebGL
       m_MaxTextureSize: 2048
       m_ResizeAlgorithm: 0
@@ -31,6 +31,7 @@ SpriteAtlas:
       m_CrunchedCompression: 0
       m_AllowsAlphaSplitting: 0
       m_Overridden: 0
+      m_IgnorePlatformSupport: 0
       m_AndroidETC2FallbackOverride: 0
       m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     packingSettings:
@@ -40,6 +41,7 @@ SpriteAtlas:
       allowAlphaSplitting: 0
       enableRotation: 0
       enableTightPacking: 1
+      enableAlphaDilation: 0
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
@@ -72,6 +74,33 @@ SpriteAtlas:
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 0f32260eda6c8854582be4c37b3ba46d: -173530099807541425
+    - 0f32260eda6c8854582be4c37b3ba46d: -5131799650079341723
+    - 0f32260eda6c8854582be4c37b3ba46d: 1782772731699165153
+    - 0f32260eda6c8854582be4c37b3ba46d: -4657369681490478202
+    - 0f32260eda6c8854582be4c37b3ba46d: 4508224336728285508
+    - 0f32260eda6c8854582be4c37b3ba46d: 4956734507076722715
+    - 0f32260eda6c8854582be4c37b3ba46d: -5455942424890694613
+    - 0f32260eda6c8854582be4c37b3ba46d: 8669053438330781586
+    - 0f32260eda6c8854582be4c37b3ba46d: 4656255823361558748
+    - 0f32260eda6c8854582be4c37b3ba46d: 3494106018627158086
+    - 0f32260eda6c8854582be4c37b3ba46d: 4130028020911036013
+    - 0f32260eda6c8854582be4c37b3ba46d: 2710745863370659329
+    - 0f32260eda6c8854582be4c37b3ba46d: 6394709171306028739
+    - 0f32260eda6c8854582be4c37b3ba46d: -6105381759904045323
+    - 0f32260eda6c8854582be4c37b3ba46d: -4904863613219607633
+    - 0f32260eda6c8854582be4c37b3ba46d: 3736047271892612526
+    - 0f32260eda6c8854582be4c37b3ba46d: 1314405178279557413
+    - 0f32260eda6c8854582be4c37b3ba46d: -4273987248210171899
+    - 0f32260eda6c8854582be4c37b3ba46d: 2049701446520355930
+    - 0f32260eda6c8854582be4c37b3ba46d: -7925945275110868319
+    - 0f32260eda6c8854582be4c37b3ba46d: 940296708728247830
+    - 0f32260eda6c8854582be4c37b3ba46d: 4703671688645843670
+    - 0f32260eda6c8854582be4c37b3ba46d: 5450837733094888678
+    - 0f32260eda6c8854582be4c37b3ba46d: -6624131965714748740
+    - 0f32260eda6c8854582be4c37b3ba46d: -7001356426653468312
+    - 0f32260eda6c8854582be4c37b3ba46d: -5247303477784991647
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: -173530099807541425, guid: 0f32260eda6c8854582be4c37b3ba46d, type: 3}
