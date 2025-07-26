@@ -1,37 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] GameObject EnemyPrefab;
-    [SerializeField] GameObject EnemyContainer;
-
+    [SerializeField] private Transform enemySpanwer;
+    
     [Header("Lane Y Position")]
-    [SerializeField] List<float> laneyPositions;
+    [SerializeField]
+    private List<float> laneyPositions;
 
     [Header("Lane X Position")]
-    [SerializeField] float lanexPosition;
+    [SerializeField]
+    private float lanexPosition;
 
     [Header("Point System Reference")]
-    [SerializeField] PointSystem pointSystem;
+    [SerializeField]
+    private PointSystem pointSystem;
 
     [Header("Summoner for reduging HP")]
-    [SerializeField] Summoner summoner;
+    [SerializeField]
+    private Summoner summoner;
 
     [Header("Audio Manager Reference")]
-    [SerializeField] AudioManager audioManager;
+    [SerializeField]
+    private AudioManager audioManager;
 
-    public List<LaneEnemy> LaneEnemies = new List<LaneEnemy>();
+    private GameObject enemyPrefab;
+    
+    public List<LaneEnemy> laneEnemies = new List<LaneEnemy>();
 
     // Timer setup for periodic speed increase
-    [SerializeField] float speedIncreaseTimer = 0.0f;
-    [SerializeField] float timeToIncreaseSpeed = 5.0f;
-    [SerializeField] float speedIncrement = 20.0f;
-    [SerializeField] float maxSpeed = 1000.0f;
-    [SerializeField] float currentSpeed = 80.0f;
+    [SerializeField] private float speedIncreaseTimer = 0.0f;
+    [SerializeField] private float timeToIncreaseSpeed = 5.0f;
+    [SerializeField] private float speedIncrement = 20.0f;
+    [SerializeField] private float maxSpeed = 1000.0f;
+    [SerializeField] private float currentSpeed = 80.0f;
 
-    void Start()
+    private void Start()
     {
         for (int i = 0; i < laneyPositions.Count; i++)
         {
@@ -39,7 +46,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (summoner.GameEnded) return;
         // Check if it's time to increase speed
@@ -51,7 +58,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnEnemyRepeatedly(int laneIndex)
+    private IEnumerator SpawnEnemyRepeatedly(int laneIndex)
     {
         while (true)
         {
@@ -61,17 +68,17 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    void SpawnEnemy(int laneIndex)
+    private void SpawnEnemy(int laneIndex)
     {
         if (summoner.GameEnded) return;
         float positionY = laneyPositions[laneIndex];
-        Vector3 spawnPosition = new Vector3(lanexPosition, positionY, EnemyContainer.transform.position.z);
-        GameObject newEnemyGameObject = Instantiate(EnemyPrefab, spawnPosition, Quaternion.identity, EnemyContainer.transform);
+        Vector3 spawnPosition = new Vector3(lanexPosition, positionY, transform.position.z);
+        GameObject newEnemyGameObject = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, transform);
         
         newEnemyGameObject.SetActive(true);
         LaneEnemy newLaneEnemy = newEnemyGameObject.GetComponent<LaneEnemy>();
         newLaneEnemy.Initialize(laneIndex, currentSpeed, this);
-        LaneEnemies.Add(newLaneEnemy);
+        laneEnemies.Add(newLaneEnemy);
     }
 
     //Method called to remove from the list in case enemy passes the lane without dying
@@ -80,14 +87,14 @@ public class EnemyController : MonoBehaviour
     {
         if (summoner.GameEnded) return;
         summoner.ReduceHP(10);
-        LaneEnemies.Remove(laneEnemy);
+        laneEnemies.Remove(laneEnemy);
     }
 
     //Method called to remove from the list in case enemy has been killed
     public void KillEnemy(LaneEnemy laneEnemy)
     {
         if (summoner.GameEnded) return;
-        LaneEnemies.Remove(laneEnemy);
+        laneEnemies.Remove(laneEnemy);
     }
 
     public void StartKillEnemy(LaneEnemy laneEnemy)
@@ -95,5 +102,13 @@ public class EnemyController : MonoBehaviour
         if (summoner.GameEnded) return;
         pointSystem.ReceivePoints(laneEnemy.PointsFromKilling);
         audioManager.PlaySoundEnemyDied();
+    }
+
+    public void SetEnemies(List<GameObject> enemyPrefabs)
+    {
+        foreach (var prefab in enemyPrefabs)
+        {
+            enemyPrefab = prefab;
+        }
     }
 }
