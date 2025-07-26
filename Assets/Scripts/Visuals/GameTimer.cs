@@ -16,7 +16,7 @@ public class GameTimer : MonoBehaviour
 
     private void Update()
     {
-        if (summoner.GameEnded) return;
+        if (summoner.gameEnded) return;
         elapsedTime = Time.time - startTime;
         UpdateTimerText();
     }

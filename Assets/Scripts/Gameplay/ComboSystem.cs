@@ -28,12 +28,10 @@ public class ComboSystem : MonoBehaviour
 
     private PlayerInput playerInput;
 
-    private List<ComboSequence> comboSequences = new List<ComboSequence> ();
+    private List<ComboSequence> comboSequences = new();
     private Dictionary<string, InputAction> keyActions = new();
     private Dictionary<string, Action<InputAction.CallbackContext>> keyCallbacks = new();
 
-
-    // Privates
     private string _currentTypedSequence = "";
     private int currentIndex = 0;
 
@@ -118,7 +116,7 @@ public class ComboSystem : MonoBehaviour
     
     void Update()
     {
-        if (summoner.GameEnded) return;
+        if (summoner.gameEnded) return;
     }
     
     private void OnKeyPressed(InputAction.CallbackContext ctx, string key)

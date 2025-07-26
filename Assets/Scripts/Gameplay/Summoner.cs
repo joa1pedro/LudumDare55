@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Summoner : MonoBehaviour
 {
-    public bool GameEnded = false;
+    public bool gameEnded = false;
     [SerializeField] public int HP = 100;
     [SerializeField] Text hpText;
     [SerializeField] GameObject defeatScreen;
@@ -25,7 +25,7 @@ public class Summoner : MonoBehaviour
         if (HP <= 0)
         {
             // TODO END GAME
-            GameEnded = true;
+            gameEnded = true;
             defeatScreen.SetActive(true);
             Debug.Log("Summoner has been defeated!");
             Invoke("ReturnMenu", timeToEnd);
