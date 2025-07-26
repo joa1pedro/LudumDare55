@@ -250,8 +250,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 280.27493, y: 55.5}
+  m_AnchoredPosition: {x: 0, y: 10.5288}
+  m_SizeDelta: {x: 280.2749, y: 34.4423}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4093615928622192570
 MonoBehaviour:
@@ -274,7 +274,7 @@ MonoBehaviour:
   StarsEffect: {fileID: 8190851906815933779}
   comboPiecePrefab: {fileID: 4062655822461470667, guid: 186f2dbdea184a147aef68beefe43e94, type: 3}
   comboParent: {fileID: 4093615928622192549}
-  Id: COMBO
+  Id: PARALELEPIPEDO
 --- !u!114 &4093615928622192568
 MonoBehaviour:
   m_ObjectHideFlags: 0
