@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Summon : MonoBehaviour
@@ -35,7 +33,7 @@ public class Summon : MonoBehaviour
         animator.Play("GolemAttack");
         if (enemyController != null)
         {
-            foreach (var enemy in enemyController.LaneEnemies)
+            foreach (var enemy in enemyController.laneEnemies)
             {
                 if (enemy.LaneIndex == this.LaneIndex)
                 {
