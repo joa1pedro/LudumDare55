@@ -18,7 +18,5 @@ namespace Utils
                 Object.Destroy(child.gameObject); // Use DestroyImmediate if needed in editor scripts
             }
         }
-
-
     }
 }

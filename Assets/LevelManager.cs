@@ -31,7 +31,7 @@ public class LevelManager : MonoBehaviour
     
     void Start()
     {
-        currentPlayerData = SaveManager.Load();
+        currentPlayerData = IOManager.LoadPlayerData();
         Initialize(currentLevelData);
         
     }

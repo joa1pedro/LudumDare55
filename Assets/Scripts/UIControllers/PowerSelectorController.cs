@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using GameData;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
@@ -14,20 +15,17 @@ public class PowerSelectorController : MonoBehaviour
 
     private void Start()
     {
-        SaveManager.ResetSaveData();
-        List<String> unlockedSummons = SaveDataUtils.LoadUnlockedSummons();
-
+        List<SummonData> unlockedSummons = SaveLoadUtils.GetPlayerData();
+        SaveLoadUtils.ResetSaveData();
+        
         bool first = true;
         GOUtils.DestroyAllChildren(buttonsParent);
+        
         foreach (var summon in unlockedSummons)
         {
             SummonButton newButton = Instantiate(summonButtonPrefab, buttonsParent.transform);
-            newButton.Initialize(text: summon, selected: false, callback: SelectPower);
-            if (first)
-            {
-                eventSystem.firstSelectedGameObject = newButton.gameObject;
-                first = false;
-            }
+            newButton.Initialize(text: summon.name, selected: summon.selected, callback: SelectPower);
+            if (summon.selected) selectedButtons.Enqueue(newButton);
         }
     }
 
@@ -43,7 +41,7 @@ public class PowerSelectorController : MonoBehaviour
 
             selectedButtons.Enqueue(button);
             button.SetSelected(true);
-            SaveDataUtils.AddSummonSave(button.SummonName);
+            SaveLoadUtils.AddActiveSummonToSaveData(button.SummonName);
         }
         else
         {
@@ -58,7 +56,7 @@ public class PowerSelectorController : MonoBehaviour
 
             selectedButtons = newQueue;
             button.SetSelected(false);
-            SaveDataUtils.RemoveSummonSave(button.SummonName);
+            SaveLoadUtils.RemoveActiveSummonFromSaveData(button.SummonName);
         }
     }
 }

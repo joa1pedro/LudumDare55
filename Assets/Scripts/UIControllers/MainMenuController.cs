@@ -1,9 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoader : MonoBehaviour
+public class MainMenuController : MonoBehaviour
 {
-    
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject loadingScreen;
     
