@@ -32,7 +32,7 @@ public class ComboSystem : MonoBehaviour
     private Dictionary<string, InputAction> keyActions = new();
     private Dictionary<string, Action<InputAction.CallbackContext>> keyCallbacks = new();
 
-    private string _currentTypedSequence = "";
+    private string currentTypedSequence = "";
     private int currentIndex = 0;
 
     private void Awake()
@@ -78,8 +78,6 @@ public class ComboSystem : MonoBehaviour
 
     private void Start()
     {
-        int i = 0;
-
         //Initialize the Sequences
         ComboSequence[] combos = comboSequencesHolder.GetComponentsInChildren<ComboSequence>();
         comboSequences.AddRange(combos);
@@ -87,7 +85,6 @@ public class ComboSystem : MonoBehaviour
         foreach (ComboSequence sequence in comboSequences)
         {           
             sequence.Initialize(sequence.Id, normalKeyAtlas, pressedKeyAtlas);
-            i++;
         }
     }
     
@@ -114,30 +111,25 @@ public class ComboSystem : MonoBehaviour
         }
     }
     
-    void Update()
+    private void OnKeyPressed(InputAction.CallbackContext context, string key)
     {
-        if (summoner.gameEnded) return;
-    }
-    
-    private void OnKeyPressed(InputAction.CallbackContext ctx, string key)
-    {
-        _currentTypedSequence += key;
+        currentTypedSequence += key;
         CheckCombo();
     }
 
     private void CheckCombo()
     {
-        if (string.IsNullOrEmpty(_currentTypedSequence))
+        if (string.IsNullOrEmpty(currentTypedSequence))
             return;
 
         // Check for full match
         for (int i = 0; i < comboSequences.Count; i++)
         {
             var combo = comboSequences[i];
-            if (_currentTypedSequence == combo.Id)
+            if (currentTypedSequence == combo.Id)
             {
                 ExecuteCombo(combo, i);
-                _currentTypedSequence = "";
+                currentTypedSequence = "";
                 currentIndex = 0;
                 return;
             }
@@ -147,10 +139,10 @@ public class ComboSystem : MonoBehaviour
         bool isPartialMatch = false;
         foreach (var combo in comboSequences)
         {
-            if (combo.Id.StartsWith(_currentTypedSequence))
+            if (combo.Id.StartsWith(currentTypedSequence))
             {
                 isPartialMatch = true;
-                currentIndex = _currentTypedSequence.Length;
+                currentIndex = currentTypedSequence.Length;
                 combo.ForwardCombo(currentIndex);
                 break;
             }
@@ -159,7 +151,7 @@ public class ComboSystem : MonoBehaviour
         if (!isPartialMatch)
         {
             // No combo matched and not a valid prefix — reset and fail
-            _currentTypedSequence = "";
+            currentTypedSequence = "";
             currentIndex = 0;
             FailCombos();
         }

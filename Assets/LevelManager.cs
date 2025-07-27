@@ -6,7 +6,11 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private EnemyDatabase enemyDatabase;
     [SerializeField] private LevelData currentLevelData;
     [SerializeField] private EnemyController enemyController;
-
+    
+    
+    private PlayerData currentPlayerData;
+    
+    
     private List<GameObject> enemyPrefabs;
     public void Initialize(LevelData levelData)
     {
@@ -27,6 +31,8 @@ public class LevelManager : MonoBehaviour
     
     void Start()
     {
+        currentPlayerData = SaveManager.Load();
         Initialize(currentLevelData);
+        
     }
 }

@@ -5,21 +5,18 @@ public class Summon : MonoBehaviour
     [SerializeField] EnemyController enemyController;
     [SerializeField] Animator animator = default;
 
-    bool IsEnabled = false;
-    private int LaneIndex = -1;
+   private int laneIndex = -1;
 
     // Callback called by the Animation Clip
     public void DeSummonSelf()
     {
-        IsEnabled = false;
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     public void SummonSelf(int index)
     {
-        IsEnabled = true;
-        this.gameObject.SetActive(true);
-        this.LaneIndex = index;
+        gameObject.SetActive(true);
+        laneIndex = index;
         PlaySummonAnimation();
     }
 
@@ -35,7 +32,7 @@ public class Summon : MonoBehaviour
         {
             foreach (var enemy in enemyController.laneEnemies)
             {
-                if (enemy.LaneIndex == this.LaneIndex)
+                if (enemy.LaneIndex == laneIndex)
                 {
                     //Play Animation
                     enemy.Animator.Play("SkeletonDie");
