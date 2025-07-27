@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
 
-public class PowerSelectorController : MonoBehaviour
+public class SummmonSelectorController : MonoBehaviour
 {
     [SerializeField] private SummonButton summonButtonPrefab;
     [SerializeField] private GameObject buttonsParent;
