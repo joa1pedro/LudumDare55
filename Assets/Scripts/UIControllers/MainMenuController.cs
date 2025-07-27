@@ -5,6 +5,7 @@ public class MainMenuController : MonoBehaviour
 {
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject loadingScreen;
+    [SerializeField] GameObject optionsScreen;
     
     /// <summary>
     /// Scene Loader Method to be used on Button hookups inside the Main Menu
@@ -15,15 +16,24 @@ public class MainMenuController : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    public void ShowLevelSelect()
+    public void ShowSummonsSelect()
     {
         loadingScreen.SetActive(true);
         mainMenu.SetActive(false);
+        optionsScreen.SetActive(false);
     }
     
     public void ShowMainMenu()
     {
         loadingScreen.SetActive(false);
         mainMenu.SetActive(true);
+        optionsScreen.SetActive(false);
+    }
+    
+    public void ShowOptionsMenu()
+    {
+        loadingScreen.SetActive(false);
+        mainMenu.SetActive(false);
+        optionsScreen.SetActive(true);
     }
 }
