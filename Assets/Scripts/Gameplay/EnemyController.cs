@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class EnemyController : MonoBehaviour
 {
@@ -72,8 +71,8 @@ public class EnemyController : MonoBehaviour
     {
         if (summoner.gameEnded) return;
         float positionY = laneyPositions[laneIndex];
-        Vector3 spawnPosition = new Vector3(lanexPosition, positionY, transform.position.z);
-        GameObject newEnemyGameObject = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, transform);
+        Vector3 spawnPosition = new Vector3(lanexPosition, positionY, enemySpanwer.transform.position.z);
+        GameObject newEnemyGameObject = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, enemySpanwer.transform);
         
         newEnemyGameObject.SetActive(true);
         LaneEnemy newLaneEnemy = newEnemyGameObject.GetComponent<LaneEnemy>();

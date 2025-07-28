@@ -21,7 +21,11 @@ public static class SceneVisibilityOverlaySingleSelection
         if (!activeScene.IsValid() || activeScene.name != TargetSceneName)
             return; // Don't draw outside the target scene
         
-        var trackedObjects = GameObject.FindObjectsOfType<VisibilityTrackedObject>(true);
+        var trackedObjects = Object.FindObjectsByType<VisibilityTrackedObject>(
+            FindObjectsInactive.Include,
+            FindObjectsSortMode.None
+        );
+
         if (trackedObjects == null || trackedObjects.Length == 0)
             return;
 

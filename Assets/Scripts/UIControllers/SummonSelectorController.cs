@@ -18,7 +18,6 @@ public class SummonSelectorController : MonoBehaviour
         List<SummonData> unlockedSummons = SaveLoadUtils.GetPlayerData();
         SaveLoadUtils.ResetSaveData();
         
-        bool first = true;
         GOUtils.DestroyAllChildren(buttonsParent);
         
         foreach (var summon in unlockedSummons)
