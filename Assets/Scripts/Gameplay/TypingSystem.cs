@@ -5,30 +5,22 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.U2D;
 
-public class ComboSystem : MonoBehaviour
+public class TypingSystem : MonoBehaviour
 {
     [Header("Atlases")]
     [SerializeField] SpriteAtlas normalKeyAtlas = default; 
     [SerializeField] SpriteAtlas pressedKeyAtlas = default;
 
     [Header("Canvas Shake Reference")]
-    [SerializeField] CanvasShaker canvasToShake;
-
-    [Header("SummonerReference")]
-    [SerializeField] Summoner summoner;
-
-    [Header("Summons Controller Reference")]
-    [SerializeField] SummoningController summoningController;
-
-    [Header("Audio Manager Reference")]
-    [SerializeField] AudioManager audioManager;
-
+    [SerializeField]
+    protected CanvasShaker canvasToShake;
+    
     [Header("Combo Related Stuff")]
     [SerializeField] GameObject comboSequencesHolder;
 
     private PlayerInput playerInput;
 
-    private List<ComboSequence> comboSequences = new();
+    protected List<ComboSequence> comboSequences = new();
     private Dictionary<string, InputAction> keyActions = new();
     private Dictionary<string, Action<InputAction.CallbackContext>> keyCallbacks = new();
 
@@ -156,25 +148,12 @@ public class ComboSystem : MonoBehaviour
             FailCombos();
         }
     }
-    
-    private void FailCombos()
+
+    protected virtual void ExecuteCombo(ComboSequence comboSequence, int comboIndex)
     {
-        audioManager.PlaySoundFailCombo();
-        foreach (ComboSequence comboSequence in comboSequences)
-        {
-            comboSequence.EndComboInstantly();
-        }
-        canvasToShake.ShakeCanvas();
     }
 
-    private void ExecuteCombo(ComboSequence comboSequence, int comboIndex)
+    protected virtual void FailCombos()
     {
-        // Implement the effect of the combo
-        comboSequence.PlaySuccessAnimation();
-        StartCoroutine(comboSequence.EndComboDelayed(0.1f));
-
-        summoningController.PerformSummon(comboIndex);
-        audioManager.PlaySoundExecuteCombo();
     }
-    
 }

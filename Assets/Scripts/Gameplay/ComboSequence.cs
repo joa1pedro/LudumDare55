@@ -1,30 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.U2D;
-using UnityEngine.UI;
 
 public class ComboSequence : MonoBehaviour
 {
-    [SerializeField] List<ComboPiece> comboPieces = new List<ComboPiece>();
-    [SerializeField] Star StarsEffect;
-
-    [SerializeField] private ComboPiece comboPiecePrefab;
-    [SerializeField] private Transform comboParent;
-
+    [SerializeField] protected List<ComboPiece> comboPieces = new List<ComboPiece>();
+    [SerializeField] protected ComboPiece comboPiecePrefab;
+    [SerializeField] protected Transform comboParent;
     
     public string Id = string.Empty;
 
-    private bool comboStarted = false;
-    private int currentComboindex = -1;
+    protected int CurrentComboindex = -1;
     
     public void Initialize(string comboName, SpriteAtlas normalKeyAtlas, SpriteAtlas pressedKeyAtlas)
     {
         Id = comboName;
-        comboStarted = false;
-        currentComboindex = -1;
+        CurrentComboindex = -1;
 
         // Clear any existing pieces
         foreach (var piece in comboPieces)
@@ -49,10 +41,10 @@ public class ComboSequence : MonoBehaviour
     
     public void ForwardCombo(int id)
     {
-        currentComboindex = id-1;
-        if (!comboPieces[currentComboindex].Active)
+        CurrentComboindex = id-1;
+        if (!comboPieces[CurrentComboindex].Active)
         {
-            comboPieces[currentComboindex].Activate(this.Id);
+            comboPieces[CurrentComboindex].Activate(this.Id);
         }
     }
 
@@ -72,21 +64,15 @@ public class ComboSequence : MonoBehaviour
 
     private void EndCombo()
     {
-        currentComboindex = -1;
-        if (comboStarted)
-        {
-            comboStarted = false;
-            //Debug.Log("Combo Ended" + Id);
-        }
+        CurrentComboindex = -1;
         foreach(ComboPiece piece in comboPieces)
         {
-            piece.MyComboEnded(this.Id);
+            piece.MyComboEnded(Id);
         }
     }
 
-    public void PlaySuccessAnimation()
+    public virtual void PlaySuccessAnimation()
     {
-        StarsEffect.PlayStarAnimation();
-        this.ForwardCombo(this.Id.Length);
+        ForwardCombo(Id.Length);
     }
 }
