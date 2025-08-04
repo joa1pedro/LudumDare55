@@ -241,9 +241,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "AnyKey",
+                    "name": "Backspace",
                     "type": "Button",
-                    "id": "8c68714b-de2d-4456-a13a-13d56adeb6db",
+                    "id": "50e31096-3fe7-42ba-805e-023707233128",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -528,23 +528,23 @@
                 },
                 {
                     "name": "",
-                    "id": "3dc25beb-35d4-4554-84d1-f107e0da64e6",
-                    "path": "<Keyboard>/anyKey",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard",
-                    "action": "AnyKey",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "9ae93ea3-6ae4-4b3e-b669-42408dd0d43e",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard",
                     "action": "W",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15fe66af-b838-4a77-b8ae-aab589c465c0",
+                    "path": "<Keyboard>/backspace",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Backspace",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -60,17 +60,17 @@ public class TypingSystem : MonoBehaviour
         BindKey("X", playerInput.Keyboard.X);
         BindKey("Y", playerInput.Keyboard.Y);
         BindKey("Z", playerInput.Keyboard.Z);
+
+        playerInput.Keyboard.Backspace.performed += FailInstant;
     }
     private void BindKey(string keyLabel, InputAction action)
     {
         keyActions[keyLabel] = action;
-
         Action<InputAction.CallbackContext> callback = ctx => OnKeyPressed(ctx, keyLabel);
         keyCallbacks[keyLabel] = callback;
-
         action.performed += callback;
     }
-
+    
     private void Start()
     {
         ValidateSequences(comboSequences);
@@ -84,10 +84,10 @@ public class TypingSystem : MonoBehaviour
         Initialize();
     }
 
-    //TODO validation
+
     private void ValidateSequences(List<ComboSequence> sequences)
     {
-
+        //TODO validation
     }
 
     private void OnEnable()
@@ -107,17 +107,14 @@ public class TypingSystem : MonoBehaviour
         foreach (var kvp in keyActions)
         {
             if (keyCallbacks.TryGetValue(kvp.Key, out var callback))
-            {
                 kvp.Value.performed -= callback;
-            }
         }
     }
 
-    protected void ActivateSystem(bool active)
+    protected void Enable(bool active)
     {
         if (!active)
-            FailCombos();
-        
+            FailAllSequences();
         Active = active;
     }
         
@@ -149,27 +146,27 @@ public class TypingSystem : MonoBehaviour
         }
 
         // Check for valid prefix of any combo
-        bool isPartialMatch = false;
         foreach (var comboSequence in comboSequences)
         {
             if (comboSequence.Sequence.StartsWith(currentTypedSequence) 
                 && comboSequence.Context == CurrentTypingContext)
             {
-                isPartialMatch = true;
                 currentTypingIndex = currentTypedSequence.Length;
                 comboSequence.ForwardCombo(currentTypingIndex);
                 break;
             }
         }
 
-        if (!isPartialMatch)
-        {
-            // No combo matched and not a valid prefix — reset and fail
-            currentTypedSequence = "";
-            currentTypingIndex = 0;
-            FailCombos();
-        }
+        FailInstant();
     }
+    
+    protected void FailInstant()
+    {
+        currentTypedSequence = "";
+        currentTypingIndex = 0;
+        FailAllSequences();
+    }
+    
 
     protected virtual void Initialize()
     {
@@ -179,9 +176,14 @@ public class TypingSystem : MonoBehaviour
     {
     }
 
-    protected virtual void FailCombos()
+    protected virtual void FailAllSequences()
     {
         // Shake the context canvas
         canvasToShake[CurrentTypingContext].ShakeCanvas();
+    }
+    
+    protected void FailInstant(InputAction.CallbackContext callbackContext)
+    {
+        FailInstant();
     }
 }

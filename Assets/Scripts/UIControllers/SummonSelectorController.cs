@@ -10,8 +10,8 @@ public class SummonSelectorController : MonoBehaviour
     [SerializeField] private SummonButton summonButtonPrefab;
     [SerializeField] private GameObject buttonsParent;
     [SerializeField] private EventSystem eventSystem;
-    private static readonly int maxSelections = 3;
-    private static Queue<SummonButton> selectedButtons = new Queue<SummonButton>();
+    private static readonly int MaxSelections = 3;
+    private static Queue<SummonButton> _selectedButtons = new Queue<SummonButton>();
 
     private void Start()
     {
@@ -24,7 +24,7 @@ public class SummonSelectorController : MonoBehaviour
         {
             SummonButton newButton = Instantiate(summonButtonPrefab, buttonsParent.transform);
             newButton.Initialize(text: summon.name, selected: summon.selected, callback: SelectPower);
-            if (summon.selected) selectedButtons.Enqueue(newButton);
+            if (summon.selected) _selectedButtons.Enqueue(newButton);
         }
     }
 
@@ -32,13 +32,13 @@ public class SummonSelectorController : MonoBehaviour
     {
         if (!button.Selected)
         {
-            if (selectedButtons.Count >= maxSelections)
+            if (_selectedButtons.Count >= MaxSelections)
             {
-                var oldest = selectedButtons.Dequeue();
+                var oldest = _selectedButtons.Dequeue();
                 oldest.SetSelected(false);
             }
 
-            selectedButtons.Enqueue(button);
+            _selectedButtons.Enqueue(button);
             button.SetSelected(true);
             SaveLoadUtils.AddActiveSummonToSaveData(button.SummonName);
         }
@@ -46,14 +46,14 @@ public class SummonSelectorController : MonoBehaviour
         {
             // Rebuild the queue manually to remove this button
             Queue<SummonButton> newQueue = new();
-            while (selectedButtons.Count > 0)
+            while (_selectedButtons.Count > 0)
             {
-                SummonButton b = selectedButtons.Dequeue();
+                SummonButton b = _selectedButtons.Dequeue();
                 if (b != button)
                     newQueue.Enqueue(b);
             }
 
-            selectedButtons = newQueue;
+            _selectedButtons = newQueue;
             button.SetSelected(false);
             SaveLoadUtils.RemoveActiveSummonFromSaveData(button.SummonName);
         }

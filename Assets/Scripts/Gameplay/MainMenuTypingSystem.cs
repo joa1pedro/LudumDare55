@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using NUnit.Framework.Constraints;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Gameplay
@@ -10,7 +10,7 @@ namespace Gameplay
     {
         [Header("Audio Manager Reference")]
         [SerializeField] AudioManager audioManager;
-        [SerializeField] MainMenuController mainMenuController;
+        [FormerlySerializedAs("mainMenuController")] [SerializeField] MainMenuUIController mainMenuUIController;
         private Dictionary<string, (Action callback, int? context)> navigationCallbacks;
         
         private List<Button> buttons;
@@ -20,10 +20,10 @@ namespace Gameplay
             {
                 // Navigation Callbacks are assigned by string inside the ComboSequence prefab
                 // If you want to change the current typing context of the TypingSystem just assign the desired value with the callback 
-                { "Return", (mainMenuController.Return, 0) },
-                { "ShowOptionsMenu", (mainMenuController.ShowOptionsMenu, 1) },
-                { "ShowSummonsSelect", (mainMenuController.ShowSummonsSelect, 2) },
-                { "LoadScene", (mainMenuController.LoadScene, null) },
+                { "Return", (mainMenuUIController.Return, 0) },
+                { "ShowOptionsMenu", (mainMenuUIController.ShowOptionsMenu, 1) },
+                { "ShowSummonsSelect", (mainMenuUIController.ShowSummonsSelect, 2) },
+                { "LoadScene", (mainMenuUIController.LoadScene, null) },
                 { "DisableTyping", (DisableTypingButtons, null) },
                 { "EnableTyping", (EnableTypingButtons, null) },
             };
@@ -55,8 +55,8 @@ namespace Gameplay
             foreach (var btn in buttons)
                 btn.interactable = true;
             
-            mainMenuController.EnableTyping(false);
-            ActivateSystem(false);
+            mainMenuUIController.EnableTyping(false);
+            base.Enable(false);
         }
         
         public void EnableTypingButtons()
@@ -64,8 +64,8 @@ namespace Gameplay
             foreach (var btn in buttons)
                 btn.interactable = false;
             
-            mainMenuController.EnableTyping(true);
-            ActivateSystem(true);
+            mainMenuUIController.EnableTyping(true);
+            base.Enable(true);
         }
         
         protected override void ExecuteCombo(ComboSequence comboSequence, int comboIndex)
@@ -82,9 +82,9 @@ namespace Gameplay
             audioManager.PlaySoundExecuteCombo();
         }
 
-        protected override void FailCombos()
+        protected override void FailAllSequences()
         {
-            base.FailCombos();
+            base.FailAllSequences();
             
             // Play audio on context
             if (audioManager.Context == CurrentTypingContext)

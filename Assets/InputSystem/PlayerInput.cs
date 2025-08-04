@@ -327,9 +327,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""AnyKey"",
+                    ""name"": ""Backspace"",
                     ""type"": ""Button"",
-                    ""id"": ""8c68714b-de2d-4456-a13a-13d56adeb6db"",
+                    ""id"": ""50e31096-3fe7-42ba-805e-023707233128"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -614,23 +614,23 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""3dc25beb-35d4-4554-84d1-f107e0da64e6"",
-                    ""path"": ""<Keyboard>/anyKey"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard"",
-                    ""action"": ""AnyKey"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""9ae93ea3-6ae4-4b3e-b669-42408dd0d43e"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard"",
                     ""action"": ""W"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15fe66af-b838-4a77-b8ae-aab589c465c0"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""Backspace"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -679,7 +679,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Keyboard_W = m_Keyboard.FindAction("W", throwIfNotFound: true);
         m_Keyboard_Y = m_Keyboard.FindAction("Y", throwIfNotFound: true);
         m_Keyboard_Z = m_Keyboard.FindAction("Z", throwIfNotFound: true);
-        m_Keyboard_AnyKey = m_Keyboard.FindAction("AnyKey", throwIfNotFound: true);
+        m_Keyboard_Backspace = m_Keyboard.FindAction("Backspace", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -786,7 +786,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Keyboard_W;
     private readonly InputAction m_Keyboard_Y;
     private readonly InputAction m_Keyboard_Z;
-    private readonly InputAction m_Keyboard_AnyKey;
+    private readonly InputAction m_Keyboard_Backspace;
     /// <summary>
     /// Provides access to input actions defined in input action map "Keyboard".
     /// </summary>
@@ -903,9 +903,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Z => m_Wrapper.m_Keyboard_Z;
         /// <summary>
-        /// Provides access to the underlying input action "Keyboard/AnyKey".
+        /// Provides access to the underlying input action "Keyboard/Backspace".
         /// </summary>
-        public InputAction @AnyKey => m_Wrapper.m_Keyboard_AnyKey;
+        public InputAction @Backspace => m_Wrapper.m_Keyboard_Backspace;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1010,9 +1010,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Z.started += instance.OnZ;
             @Z.performed += instance.OnZ;
             @Z.canceled += instance.OnZ;
-            @AnyKey.started += instance.OnAnyKey;
-            @AnyKey.performed += instance.OnAnyKey;
-            @AnyKey.canceled += instance.OnAnyKey;
+            @Backspace.started += instance.OnBackspace;
+            @Backspace.performed += instance.OnBackspace;
+            @Backspace.canceled += instance.OnBackspace;
         }
 
         /// <summary>
@@ -1102,9 +1102,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Z.started -= instance.OnZ;
             @Z.performed -= instance.OnZ;
             @Z.canceled -= instance.OnZ;
-            @AnyKey.started -= instance.OnAnyKey;
-            @AnyKey.performed -= instance.OnAnyKey;
-            @AnyKey.canceled -= instance.OnAnyKey;
+            @Backspace.started -= instance.OnBackspace;
+            @Backspace.performed -= instance.OnBackspace;
+            @Backspace.canceled -= instance.OnBackspace;
         }
 
         /// <summary>
@@ -1341,11 +1341,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnZ(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "AnyKey" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Backspace" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnAnyKey(InputAction.CallbackContext context);
+        void OnBackspace(InputAction.CallbackContext context);
     }
 }

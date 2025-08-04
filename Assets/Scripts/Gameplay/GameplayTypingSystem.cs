@@ -20,9 +20,9 @@ namespace Gameplay
             audioManager.PlaySoundExecuteCombo();
         }
 
-        protected override void FailCombos()
+        protected override void FailAllSequences()
         {
-            base.FailCombos();
+            base.FailAllSequences();
             
             // Play audio on context
             if (audioManager.Context == CurrentTypingContext)
