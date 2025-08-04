@@ -9,13 +9,16 @@ public class ComboSequence : MonoBehaviour
     [SerializeField] protected ComboPiece comboPiecePrefab;
     [SerializeField] protected Transform comboParent;
     
-    public string Id = string.Empty;
+    // Logic
+    [SerializeField] public int Context;
+    [SerializeField] public string Sequence = string.Empty;
+    [SerializeField] public string CallbackKey = string.Empty;
 
-    protected int CurrentComboindex = -1;
+    private int CurrentComboindex = -1;
     
     public void Initialize(string comboName, SpriteAtlas normalKeyAtlas, SpriteAtlas pressedKeyAtlas)
     {
-        Id = comboName;
+        Sequence = comboName;
         CurrentComboindex = -1;
 
         // Clear any existing pieces
@@ -44,7 +47,7 @@ public class ComboSequence : MonoBehaviour
         CurrentComboindex = id-1;
         if (!comboPieces[CurrentComboindex].Active)
         {
-            comboPieces[CurrentComboindex].Activate(this.Id);
+            comboPieces[CurrentComboindex].Activate(this.Sequence);
         }
     }
 
@@ -67,12 +70,12 @@ public class ComboSequence : MonoBehaviour
         CurrentComboindex = -1;
         foreach(ComboPiece piece in comboPieces)
         {
-            piece.MyComboEnded(Id);
+            piece.MyComboEnded(Sequence);
         }
     }
 
     public virtual void PlaySuccessAnimation()
     {
-        ForwardCombo(Id.Length);
+        ForwardCombo(Sequence.Length);
     }
 }

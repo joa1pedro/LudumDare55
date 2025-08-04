@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] List<AudioClip> summonAudios = new List<AudioClip>();
 
     [SerializeField] AudioSource audioSource;
+    [SerializeField] public int Context;
 
 
     private System.Random random = new System.Random();

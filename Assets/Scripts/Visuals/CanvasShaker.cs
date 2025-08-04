@@ -5,6 +5,7 @@ public class CanvasShaker : MonoBehaviour
 {
     public float shakeDuration = 0.1f;
     public float shakeAmount = 10f;
+    [SerializeField] public int Context;
 
     private Vector3 originalPosition;
 

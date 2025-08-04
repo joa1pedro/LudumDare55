@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.U2D;
@@ -11,21 +12,23 @@ public class TypingSystem : MonoBehaviour
     [SerializeField] SpriteAtlas normalKeyAtlas = default; 
     [SerializeField] SpriteAtlas pressedKeyAtlas = default;
 
-    [Header("Canvas Shake Reference")]
+    [Header("Canvas Shake References")]
     [SerializeField]
-    protected CanvasShaker canvasToShake;
+    protected List<CanvasShaker> canvasToShake;
     
-    [Header("Combo Related Stuff")]
-    [SerializeField] GameObject comboSequencesHolder;
+    [Header("Sequences")]
+    [SerializeField] protected List<ComboSequence> comboSequences = new();
 
     private PlayerInput playerInput;
 
-    protected List<ComboSequence> comboSequences = new();
     private Dictionary<string, InputAction> keyActions = new();
     private Dictionary<string, Action<InputAction.CallbackContext>> keyCallbacks = new();
 
     private string currentTypedSequence = "";
-    private int currentIndex = 0;
+    private int currentTypingIndex = 0;
+    protected int CurrentTypingContext;
+    
+    protected bool Active = true;
 
     private void Awake()
     {
@@ -70,16 +73,23 @@ public class TypingSystem : MonoBehaviour
 
     private void Start()
     {
-        //Initialize the Sequences
-        ComboSequence[] combos = comboSequencesHolder.GetComponentsInChildren<ComboSequence>();
-        comboSequences.AddRange(combos);
-        
+        ValidateSequences(comboSequences);
         foreach (ComboSequence sequence in comboSequences)
         {           
-            sequence.Initialize(sequence.Id, normalKeyAtlas, pressedKeyAtlas);
+            sequence.Initialize(sequence.Sequence, normalKeyAtlas, pressedKeyAtlas);
         }
-    }
     
+        // Initialize the context
+        CurrentTypingContext = 0;
+        Initialize();
+    }
+
+    //TODO validation
+    private void ValidateSequences(List<ComboSequence> sequences)
+    {
+
+    }
+
     private void OnEnable()
     {
         foreach (var action in keyActions.Values)
@@ -102,9 +112,18 @@ public class TypingSystem : MonoBehaviour
             }
         }
     }
-    
+
+    protected void ActivateSystem(bool active)
+    {
+        if (!active)
+            FailCombos();
+        
+        Active = active;
+    }
+        
     private void OnKeyPressed(InputAction.CallbackContext context, string key)
     {
+        if (!Active) return;
         currentTypedSequence += key;
         CheckCombo();
     }
@@ -117,25 +136,28 @@ public class TypingSystem : MonoBehaviour
         // Check for full match
         for (int i = 0; i < comboSequences.Count; i++)
         {
-            var combo = comboSequences[i];
-            if (currentTypedSequence == combo.Id)
+            var comboSequence = comboSequences[i];
+            
+            if (currentTypedSequence == comboSequence.Sequence 
+                && comboSequence.Context == CurrentTypingContext)
             {
-                ExecuteCombo(combo, i);
+                ExecuteCombo(comboSequence, i);
                 currentTypedSequence = "";
-                currentIndex = 0;
+                currentTypingIndex = 0;
                 return;
             }
         }
 
         // Check for valid prefix of any combo
         bool isPartialMatch = false;
-        foreach (var combo in comboSequences)
+        foreach (var comboSequence in comboSequences)
         {
-            if (combo.Id.StartsWith(currentTypedSequence))
+            if (comboSequence.Sequence.StartsWith(currentTypedSequence) 
+                && comboSequence.Context == CurrentTypingContext)
             {
                 isPartialMatch = true;
-                currentIndex = currentTypedSequence.Length;
-                combo.ForwardCombo(currentIndex);
+                currentTypingIndex = currentTypedSequence.Length;
+                comboSequence.ForwardCombo(currentTypingIndex);
                 break;
             }
         }
@@ -144,9 +166,13 @@ public class TypingSystem : MonoBehaviour
         {
             // No combo matched and not a valid prefix — reset and fail
             currentTypedSequence = "";
-            currentIndex = 0;
+            currentTypingIndex = 0;
             FailCombos();
         }
+    }
+
+    protected virtual void Initialize()
+    {
     }
 
     protected virtual void ExecuteCombo(ComboSequence comboSequence, int comboIndex)
@@ -155,5 +181,7 @@ public class TypingSystem : MonoBehaviour
 
     protected virtual void FailCombos()
     {
+        // Shake the context canvas
+        canvasToShake[CurrentTypingContext].ShakeCanvas();
     }
 }

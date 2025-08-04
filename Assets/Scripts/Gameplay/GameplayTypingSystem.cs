@@ -22,12 +22,19 @@ namespace Gameplay
 
         protected override void FailCombos()
         {
-            audioManager.PlaySoundFailCombo();
+            base.FailCombos();
+            
+            // Play audio on context
+            if (audioManager.Context == CurrentTypingContext)
+            {
+                audioManager.PlaySoundFailCombo();
+            }
+            
             foreach (ComboSequence comboSequence in comboSequences)
             {
-                comboSequence.EndComboInstantly();
+                if(comboSequence.Context == CurrentTypingContext)
+                    comboSequence.EndComboInstantly();
             }
-            canvasToShake.ShakeCanvas();
         }
     }
 }
