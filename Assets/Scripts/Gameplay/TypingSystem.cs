@@ -153,7 +153,7 @@ public class TypingSystem : MonoBehaviour
             {
                 currentTypingIndex = currentTypedSequence.Length;
                 comboSequence.ForwardCombo(currentTypingIndex);
-                break;
+                return;
             }
         }
 
@@ -179,6 +179,8 @@ public class TypingSystem : MonoBehaviour
     protected virtual void FailAllSequences()
     {
         // Shake the context canvas
+        if (canvasToShake[CurrentTypingContext] == null) return;
+        
         canvasToShake[CurrentTypingContext].ShakeCanvas();
     }
     

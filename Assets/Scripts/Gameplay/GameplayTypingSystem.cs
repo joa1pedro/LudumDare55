@@ -16,8 +16,8 @@ namespace Gameplay
             comboSequence.PlaySuccessAnimation();
             StartCoroutine(comboSequence.EndComboDelayed(0.1f));
 
-            summoningController.PerformSummon(comboIndex);
-            audioManager.PlaySoundExecuteCombo();
+            summoningController?.PerformSummon(comboIndex);
+            audioManager?.PlaySoundExecuteCombo();
         }
 
         protected override void FailAllSequences()
@@ -25,9 +25,12 @@ namespace Gameplay
             base.FailAllSequences();
             
             // Play audio on context
-            if (audioManager.Context == CurrentTypingContext)
+            if (audioManager != null)
             {
-                audioManager.PlaySoundFailCombo();
+                if (audioManager.Context == CurrentTypingContext)
+                {
+                    audioManager.PlaySoundFailCombo();
+                }
             }
             
             foreach (ComboSequence comboSequence in comboSequences)
