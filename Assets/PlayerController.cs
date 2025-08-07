@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     private PlayerInput playerInput;
     private int currentAnimation;
 
-    private static readonly int IsMoving = Animator.StringToHash("IsMoving");
     private static readonly int RunUp = Animator.StringToHash("RunUp");
     private static readonly int RunDown = Animator.StringToHash("RunDown");
     private static readonly int RunLeft = Animator.StringToHash("RunLeft");
