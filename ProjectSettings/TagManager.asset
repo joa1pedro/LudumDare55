@@ -12,7 +12,7 @@ TagManager:
   - Water
   - UI
   - Character
-  - 
+  - NPC
   - 
   - 
   - 
@@ -43,6 +43,9 @@ TagManager:
     locked: 0
   - name: Character
     uniqueID: 4010569725
+    locked: 0
+  - name: NPC
+    uniqueID: 3282578463
     locked: 0
   m_RenderingLayers:
   - Default
