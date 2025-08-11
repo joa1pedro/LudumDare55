@@ -5,10 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
-    private NavMeshAgent agent;
-    private PlayerInput playerInput;
-    private int currentAnimation;
+     private NavMeshAgent _playerAgent;
+     [SerializeField] private Animator _animator;
 
     private static readonly int RunUp = Animator.StringToHash("RunUp");
     private static readonly int RunDown = Animator.StringToHash("RunDown");
@@ -24,37 +22,40 @@ public class PlayerController : MonoBehaviour
     private static readonly int RunDownRight = Animator.StringToHash("RunDownRight");
     private static readonly int RunDownLeft = Animator.StringToHash("RunDownLeft");
     
-    float diagonalDeadzone = 0.2f;  // How close x and z must be to consider diagonal
-    float minMoveThreshold = 0.05f;  // Below this: considered idle
+    float _diagonalDeadzone = 0.2f;  // How close x and z must be to consider diagonal
+    float _minMoveThreshold = 0.05f;  // Below this: considered idle
+    private float _interactDistance = 100f;
+    private float _moveInteractDistance = 100f;
+    
+    private PlayerInput _playerInput;
+    private int _currentAnimation;
+    
     void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
-        playerInput = new PlayerInput();
-        playerInput.Enable();
-        AssignInputs();
+        _playerAgent = GetComponent<NavMeshAgent>();
+        _playerInput = new PlayerInput();
+        _playerInput.Mouse.Enable();
+        
+        _playerInput.Mouse.Move.performed += MoveCharacter;
+        _playerInput.Mouse.Interact.performed += OnInteract;
     }
 
     private void OnEnable()
     {
-        playerInput?.Enable();
+        _playerInput?.Enable();
     }
 
     private void OnDisable()
     {
-        playerInput?.Disable();
-    }
-    
-    private void AssignInputs()
-    {
-        playerInput.Mouse.Move.performed += MoveCharacter;
+        _playerInput?.Disable();
     }
     
     private void Update()
     {
-        Vector3 movement = agent.velocity;
-        agent.updateRotation = false;
+        Vector3 movement = _playerAgent.velocity;
+        _playerAgent.updateRotation = false;
 
-        if (movement.sqrMagnitude < minMoveThreshold * minMoveThreshold)
+        if (movement.sqrMagnitude < _minMoveThreshold * _minMoveThreshold)
         {
             ChangeAnimation(IdleDown);
             return;
@@ -64,7 +65,7 @@ public class PlayerController : MonoBehaviour
         float absZ = Mathf.Abs(movement.z);
         float diff = Mathf.Abs(absX - absZ);
         
-        if (diff < diagonalDeadzone)
+        if (diff < _diagonalDeadzone)
         {
             // Diagonal movement
             // TODO Make this guy walk diagonally 
@@ -99,24 +100,40 @@ public class PlayerController : MonoBehaviour
     
     private void ChangeAnimation(int animationStr, float crossFade = 0.2f)
     {
-        if (currentAnimation != animationStr)
+        if (_currentAnimation != animationStr)
         {
-            currentAnimation = animationStr;
-            animator.CrossFade(animationStr, crossFade);
+            _currentAnimation = animationStr;
+            _animator.CrossFade(animationStr, crossFade);
         }
     }
     
     private void MoveCharacter(InputAction.CallbackContext callbackContext)
     {
-        RaycastHit hit;
-
-        Vector2 mousePos = Mouse.current.position.ReadValue(); // New Input System
+        Vector2 mousePos = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-        if (Physics.Raycast(ray, out hit, 100))
+        if (Physics.Raycast(ray, out RaycastHit hit, _moveInteractDistance))
         {
-            agent.destination = hit.point;
+            _playerAgent.destination = hit.point;
         }
     }
+    
+    private void OnInteract(InputAction.CallbackContext callbackContext)
+    {
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
+#if DEBUG_DRAW_RAY
+        Debug.DrawRay(ray.origin, ray.direction * interactDistance, Color.red, 1f);
+#endif
+        
+        if (Physics.Raycast(ray, out RaycastHit hit, _interactDistance))
+        {
+            if (hit.collider.TryGetComponent<IInteractable>(out var interactable))
+            {
+                interactable.Interact();
+            }
+        }
+    }
 }
+
