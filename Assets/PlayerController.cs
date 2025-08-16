@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
      private NavMeshAgent _playerAgent;
      [SerializeField] private Animator _animator;
+     [SerializeField] private LayerMask _groundMask;
 
     private static readonly int RunUp = Animator.StringToHash("RunUp");
     private static readonly int RunDown = Animator.StringToHash("RunDown");
@@ -21,18 +22,20 @@ public class PlayerController : MonoBehaviour
     private static readonly int RunUpLeft = Animator.StringToHash("RunUpLeft");
     private static readonly int RunDownRight = Animator.StringToHash("RunDownRight");
     private static readonly int RunDownLeft = Animator.StringToHash("RunDownLeft");
-    
-    float _diagonalDeadzone = 0.2f;  // How close x and z must be to consider diagonal
-    float _minMoveThreshold = 0.05f;  // Below this: considered idle
-    private float _interactDistance = 100f;
-    private float _moveInteractDistance = 100f;
+    private int _currentAnimation;
+
+    private readonly float _diagonalDeadzone = 0.2f;  // How close x and z must be to consider diagonal
+    private readonly float _minMoveThreshold = 0.05f;  // Below this: considered idle
+    private readonly float _interactDistance = 100f;
+    private readonly float _moveInteractDistance = 100f;
     
     private PlayerInput _playerInput;
-    private int _currentAnimation;
-    
+    private BoxCollider _proximityCollider;
+
     void Awake()
     {
         _playerAgent = GetComponent<NavMeshAgent>();
+        _proximityCollider = GetComponent<BoxCollider>();
         _playerInput = new PlayerInput();
         _playerInput.Mouse.Enable();
         
@@ -106,15 +109,15 @@ public class PlayerController : MonoBehaviour
             _animator.CrossFade(animationStr, crossFade);
         }
     }
-    
+
     private void MoveCharacter(InputAction.CallbackContext callbackContext)
     {
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, _moveInteractDistance))
+        if (Physics.Raycast(ray, out RaycastHit hit, _moveInteractDistance, _groundMask))
         {
-            _playerAgent.destination = hit.point;
+            _playerAgent.SetDestination(hit.point);
         }
     }
     
@@ -122,14 +125,12 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
-
-#if DEBUG_DRAW_RAY
-        Debug.DrawRay(ray.origin, ray.direction * interactDistance, Color.red, 1f);
-#endif
+        
+       Debug.DrawRay(ray.origin, ray.direction * _interactDistance, Color.red, 1f);
         
         if (Physics.Raycast(ray, out RaycastHit hit, _interactDistance))
         {
-            if (hit.collider.TryGetComponent<IInteractable>(out var interactable))
+            if (hit.collider.TryGetComponent<IClickInteractable>(out var interactable))
             {
                 interactable.Interact();
             }

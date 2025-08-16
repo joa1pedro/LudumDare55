@@ -20,7 +20,6 @@ public class TypingSystem : MonoBehaviour
     [SerializeField] protected List<ComboSequence> comboSequences = new();
     
     [SerializeField] GameObject _enabledIndicator;
-    
 
     private PlayerInput _playerInput;
 
@@ -180,6 +179,7 @@ public class TypingSystem : MonoBehaviour
 
     protected virtual void ExecuteCombo(ComboSequence comboSequence, int comboIndex)
     {
+        TypingEventBus.Publish(comboSequence.Sequence, "Anything");
     }
 
     protected virtual void FailAllSequences()
