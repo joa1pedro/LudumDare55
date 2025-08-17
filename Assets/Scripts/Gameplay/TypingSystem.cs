@@ -120,7 +120,7 @@ public class TypingSystem : MonoBehaviour
         if (!active)
             FailAllSequences();
         Active = active;
-        _enabledIndicator.SetActive(Active);
+        _enabledIndicator?.SetActive(Active);
     }
         
     private void OnKeyPressed(InputAction.CallbackContext context, string key)
