@@ -3,12 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuUIController : MonoBehaviour
 {
-    [SerializeField] private GameObject mainMenu;
-    [SerializeField] private GameObject loadingScreen;
-    [SerializeField] private GameObject optionsScreen;
+    [SerializeField] private GameObject _mainMenu;
+    [SerializeField] private GameObject _loadingScreen;
+    [SerializeField] private GameObject _optionsScreen;
 
-    [SerializeField] private GameObject enableButton;
-    [SerializeField] private GameObject disableButton;
+    [SerializeField] private GameObject _enableButton;
+    [SerializeField] private GameObject _disableButton;
 
 	private string currentScene;
 
@@ -34,30 +34,30 @@ public class MainMenuUIController : MonoBehaviour
     public void ShowSummonsSelect()
     {
         currentScene = "Options";
-        loadingScreen.SetActive(true);
-        mainMenu.SetActive(false);
-        optionsScreen.SetActive(false);
+        _loadingScreen.SetActive(true);
+        _mainMenu.SetActive(false);
+        _optionsScreen.SetActive(false);
     }
     
     public void ShowMainMenu()
     {
         currentScene = "MainMenu";
-        loadingScreen.SetActive(false);
-        mainMenu.SetActive(true);
-        optionsScreen.SetActive(false);
+        _loadingScreen.SetActive(false);
+        _mainMenu.SetActive(true);
+        _optionsScreen.SetActive(false);
     }
     
     public void ShowOptionsMenu()
     {
         currentScene = "Options";
-        loadingScreen.SetActive(false);
-        mainMenu.SetActive(false);
-        optionsScreen.SetActive(true);
+        _loadingScreen.SetActive(false);
+        _mainMenu.SetActive(false);
+        _optionsScreen.SetActive(true);
     }
 
     public void EnableTyping(bool enable)
     {
-        disableButton.SetActive(!enable);
-        enableButton.SetActive(enable);
+        _disableButton.SetActive(enable);
+        _enableButton.SetActive(!enable);
     }
 }

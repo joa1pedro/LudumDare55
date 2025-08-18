@@ -1,23 +1,22 @@
+using System;
 using UnityEngine;
 
 namespace Gameplay
 {
     public class GameplayTypingSystem : TypingSystem
     {
-        [Header("Summons Controller Reference")]
-        [SerializeField] SummoningController summoningController;
-
         [Header("Audio Manager Reference")]
-        [SerializeField] AudioManager audioManager;
+        [SerializeField] AudioManager _audioManager;
         
         protected override void ExecuteCombo(ComboSequence comboSequence, int comboIndex)
         {
+            base.ExecuteCombo(comboSequence, comboIndex);
+            
             // Implement the effect of the combo
             comboSequence.PlaySuccessAnimation();
             StartCoroutine(comboSequence.EndComboDelayed(0.1f));
 
-            summoningController.PerformSummon(comboIndex);
-            audioManager.PlaySoundExecuteCombo();
+            _audioManager?.PlaySoundExecuteCombo();
         }
 
         protected override void FailAllSequences()
@@ -25,9 +24,12 @@ namespace Gameplay
             base.FailAllSequences();
             
             // Play audio on context
-            if (audioManager.Context == CurrentTypingContext)
+            if (_audioManager != null)
             {
-                audioManager.PlaySoundFailCombo();
+                if (_audioManager.Context == CurrentTypingContext)
+                {
+                    _audioManager.PlaySoundFailCombo();
+                }
             }
             
             foreach (ComboSequence comboSequence in comboSequences)

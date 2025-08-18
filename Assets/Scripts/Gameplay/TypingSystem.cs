@@ -18,56 +18,60 @@ public class TypingSystem : MonoBehaviour
     
     [Header("Sequences")]
     [SerializeField] protected List<ComboSequence> comboSequences = new();
-
-    private PlayerInput playerInput;
-
-    private Dictionary<string, InputAction> keyActions = new();
-    private Dictionary<string, Action<InputAction.CallbackContext>> keyCallbacks = new();
-
-    private string currentTypedSequence = "";
-    private int currentTypingIndex = 0;
-    protected int CurrentTypingContext;
     
+    [SerializeField] GameObject _enabledIndicator;
+
+    private PlayerInput _playerInput;
+
+    private Dictionary<string, InputAction> _keyActions = new();
+    private Dictionary<string, Action<InputAction.CallbackContext>> _keyCallbacks = new();
+
+    private string _currentTypedSequence = "";
+    private int _currentTypingIndex = 0;
+    
+    protected int CurrentTypingContext;
     protected bool Active = true;
 
     private void Awake()
     {
-        playerInput = new PlayerInput();
-        playerInput.Keyboard.Enable();
-        BindKey("A", playerInput.Keyboard.A);
-        BindKey("B", playerInput.Keyboard.B);
-        BindKey("C", playerInput.Keyboard.C);
-        BindKey("D", playerInput.Keyboard.D);
-        BindKey("E", playerInput.Keyboard.E);
-        BindKey("F", playerInput.Keyboard.F);
-        BindKey("G", playerInput.Keyboard.G);
-        BindKey("H", playerInput.Keyboard.H);
-        BindKey("I", playerInput.Keyboard.I);
-        BindKey("J", playerInput.Keyboard.J);
-        BindKey("K", playerInput.Keyboard.K);
-        BindKey("L", playerInput.Keyboard.L);
-        BindKey("M", playerInput.Keyboard.M);
-        BindKey("N", playerInput.Keyboard.N);
-        BindKey("O", playerInput.Keyboard.O);
-        BindKey("P", playerInput.Keyboard.P);
-        BindKey("Q", playerInput.Keyboard.Q);
-        BindKey("R", playerInput.Keyboard.R);
-        BindKey("S", playerInput.Keyboard.S);
-        BindKey("T", playerInput.Keyboard.T);
-        BindKey("U", playerInput.Keyboard.U);
-        BindKey("V", playerInput.Keyboard.V);
-        BindKey("W", playerInput.Keyboard.W);
-        BindKey("X", playerInput.Keyboard.X);
-        BindKey("Y", playerInput.Keyboard.Y);
-        BindKey("Z", playerInput.Keyboard.Z);
+        _playerInput = new PlayerInput();
+        _playerInput.Keyboard.Enable();
+        BindKey("A", _playerInput.Keyboard.A);
+        BindKey("B", _playerInput.Keyboard.B);
+        BindKey("C", _playerInput.Keyboard.C);
+        BindKey("D", _playerInput.Keyboard.D);
+        BindKey("E", _playerInput.Keyboard.E);
+        BindKey("F", _playerInput.Keyboard.F);
+        BindKey("G", _playerInput.Keyboard.G);
+        BindKey("H", _playerInput.Keyboard.H);
+        BindKey("I", _playerInput.Keyboard.I);
+        BindKey("J", _playerInput.Keyboard.J);
+        BindKey("K", _playerInput.Keyboard.K);
+        BindKey("L", _playerInput.Keyboard.L);
+        BindKey("M", _playerInput.Keyboard.M);
+        BindKey("N", _playerInput.Keyboard.N);
+        BindKey("O", _playerInput.Keyboard.O);
+        BindKey("P", _playerInput.Keyboard.P);
+        BindKey("Q", _playerInput.Keyboard.Q);
+        BindKey("R", _playerInput.Keyboard.R);
+        BindKey("S", _playerInput.Keyboard.S);
+        BindKey("T", _playerInput.Keyboard.T);
+        BindKey("U", _playerInput.Keyboard.U);
+        BindKey("V", _playerInput.Keyboard.V);
+        BindKey("W", _playerInput.Keyboard.W);
+        BindKey("X", _playerInput.Keyboard.X);
+        BindKey("Y", _playerInput.Keyboard.Y);
+        BindKey("Z", _playerInput.Keyboard.Z);
 
-        playerInput.Keyboard.Backspace.performed += FailInstant;
+        _playerInput.Keyboard.Enter.performed += SwitchFailed;
+        _playerInput.Keyboard.Backspace.performed += FailInstant;
     }
+
     private void BindKey(string keyLabel, InputAction action)
     {
-        keyActions[keyLabel] = action;
+        _keyActions[keyLabel] = action;
         Action<InputAction.CallbackContext> callback = ctx => OnKeyPressed(ctx, keyLabel);
-        keyCallbacks[keyLabel] = callback;
+        _keyCallbacks[keyLabel] = callback;
         action.performed += callback;
     }
     
@@ -92,21 +96,21 @@ public class TypingSystem : MonoBehaviour
 
     private void OnEnable()
     {
-        foreach (var action in keyActions.Values)
+        foreach (var action in _keyActions.Values)
             action.Enable();
     }
 
     private void OnDisable()
     {
-        foreach (var action in keyActions.Values)
+        foreach (var action in _keyActions.Values)
             action.Disable();
     }
 
     private void OnDestroy()
     {
-        foreach (var kvp in keyActions)
+        foreach (var kvp in _keyActions)
         {
-            if (keyCallbacks.TryGetValue(kvp.Key, out var callback))
+            if (_keyCallbacks.TryGetValue(kvp.Key, out var callback))
                 kvp.Value.performed -= callback;
         }
     }
@@ -116,18 +120,19 @@ public class TypingSystem : MonoBehaviour
         if (!active)
             FailAllSequences();
         Active = active;
+        _enabledIndicator?.SetActive(Active);
     }
         
     private void OnKeyPressed(InputAction.CallbackContext context, string key)
     {
         if (!Active) return;
-        currentTypedSequence += key;
+        _currentTypedSequence += key;
         CheckCombo();
     }
 
     private void CheckCombo()
     {
-        if (string.IsNullOrEmpty(currentTypedSequence))
+        if (string.IsNullOrEmpty(_currentTypedSequence))
             return;
 
         // Check for full match
@@ -135,12 +140,12 @@ public class TypingSystem : MonoBehaviour
         {
             var comboSequence = comboSequences[i];
             
-            if (currentTypedSequence == comboSequence.Sequence 
+            if (_currentTypedSequence == comboSequence.Sequence 
                 && comboSequence.Context == CurrentTypingContext)
             {
                 ExecuteCombo(comboSequence, i);
-                currentTypedSequence = "";
-                currentTypingIndex = 0;
+                _currentTypedSequence = "";
+                _currentTypingIndex = 0;
                 return;
             }
         }
@@ -148,12 +153,12 @@ public class TypingSystem : MonoBehaviour
         // Check for valid prefix of any combo
         foreach (var comboSequence in comboSequences)
         {
-            if (comboSequence.Sequence.StartsWith(currentTypedSequence) 
+            if (comboSequence.Sequence.StartsWith(_currentTypedSequence) 
                 && comboSequence.Context == CurrentTypingContext)
             {
-                currentTypingIndex = currentTypedSequence.Length;
-                comboSequence.ForwardCombo(currentTypingIndex);
-                break;
+                _currentTypingIndex = _currentTypedSequence.Length;
+                comboSequence.ForwardCombo(_currentTypingIndex);
+                return;
             }
         }
 
@@ -162,8 +167,8 @@ public class TypingSystem : MonoBehaviour
     
     protected void FailInstant()
     {
-        currentTypedSequence = "";
-        currentTypingIndex = 0;
+        _currentTypedSequence = "";
+        _currentTypingIndex = 0;
         FailAllSequences();
     }
     
@@ -174,16 +179,23 @@ public class TypingSystem : MonoBehaviour
 
     protected virtual void ExecuteCombo(ComboSequence comboSequence, int comboIndex)
     {
+        TypingEventBus.Publish(comboSequence.Sequence, "Anything");
     }
 
     protected virtual void FailAllSequences()
     {
-        // Shake the context canvas
+        if (!canvasToShake[CurrentTypingContext]) return;
+        
         canvasToShake[CurrentTypingContext].ShakeCanvas();
     }
     
     protected void FailInstant(InputAction.CallbackContext callbackContext)
     {
         FailInstant();
+    }
+    
+    private void SwitchFailed(InputAction.CallbackContext callbackContext)
+    {
+        Enable(!Active);
     }
 }
