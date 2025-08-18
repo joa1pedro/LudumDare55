@@ -3461,11 +3461,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b5abe47d45eff743919158786fc62f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenu: {fileID: 248621746}
-  loadingScreen: {fileID: 1512055252}
-  optionsScreen: {fileID: 580086706}
-  enableButton: {fileID: 833790731}
-  disableButton: {fileID: 1401345688}
+  _mainMenu: {fileID: 248621746}
+  _loadingScreen: {fileID: 1512055252}
+  _optionsScreen: {fileID: 580086706}
+  _enableButton: {fileID: 833790731}
+  _disableButton: {fileID: 1401345688}
 --- !u!224 &1623794921 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 282869270007933899, guid: eb1a47ae0abba7a458d57df0596e8462, type: 3}

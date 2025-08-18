@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61d94098c03d42b3a148804dc62c3a95, type: 3}
+  m_Name: Joanna_001
+  m_EditorClassIdentifier: 
+  Id: Joanna_01
+  Portrait: {fileID: 545875093725613961, guid: 9e4331f165b653645a3398c7a48ffa59, type: 3}
+  SpeakerName: Joanna
+  Text: Joanna_TALKing text 01

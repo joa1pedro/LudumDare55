@@ -3,8 +3,7 @@ using System.Collections.Generic;
 
 public static class TypingEventBus
 {
-    private static readonly Dictionary<string, Action<object[]>> Events 
-        = new Dictionary<string, Action<object[]>>();
+    private static readonly Dictionary<string, Action<object[]>> Events = new();
 
     public static void Subscribe(string command, Action<object[]> callback)
     {

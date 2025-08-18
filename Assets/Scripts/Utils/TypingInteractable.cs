@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TypingInteractable : MonoBehaviour, ITypingInteractable
 { 
+    [SerializeField] private string _id;
     [SerializeField] private string _sequence;
     private bool _playerInRange = false;
     
@@ -16,7 +17,7 @@ public class TypingInteractable : MonoBehaviour, ITypingInteractable
     public void Interact(object[] args)
     {
         if (!_playerInRange) return;
-        Debug.Log("Typing Interacted");
+        DialogManagerEventBus.Publish(_id, _id, false);
     }
     
     private void OnTriggerEnter(Collider other)
