@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         
-        Debug.DrawRay(ray.origin, ray.direction * _interactDistance, Color.red, 1f);
+        //Debug.DrawRay(ray.origin, ray.direction * _interactDistance, Color.red, 1f);
         
         if (Physics.Raycast(ray, out RaycastHit hit, _interactDistance))
         {

@@ -20,6 +20,11 @@ public class TypingSystem : MonoBehaviour
     [SerializeField] protected List<ComboSequence> comboSequences = new();
     
     [SerializeField] GameObject _enabledIndicator;
+    
+    [Header("Script Options")]
+    [SerializeField] bool _useEnterForSubmit;
+    [Tooltip("Turn this on/off for starting the system On/Off")]
+    [SerializeField] protected bool Active = false;
 
     private PlayerInput _playerInput;
 
@@ -30,10 +35,11 @@ public class TypingSystem : MonoBehaviour
     private int _currentTypingIndex = 0;
     
     protected int CurrentTypingContext;
-    protected bool Active = true;
 
     private void Awake()
     {
+        _enabledIndicator?.SetActive(Active);
+        
         _playerInput = new PlayerInput();
         _playerInput.Keyboard.Enable();
         BindKey("A", _playerInput.Keyboard.A);
@@ -62,22 +68,16 @@ public class TypingSystem : MonoBehaviour
         BindKey("X", _playerInput.Keyboard.X);
         BindKey("Y", _playerInput.Keyboard.Y);
         BindKey("Z", _playerInput.Keyboard.Z);
-
-        _playerInput.Keyboard.Enter.performed += SwitchFailed;
         _playerInput.Keyboard.Backspace.performed += FailInstant;
-    }
-
-    private void BindKey(string keyLabel, InputAction action)
-    {
-        _keyActions[keyLabel] = action;
-        Action<InputAction.CallbackContext> callback = ctx => OnKeyPressed(ctx, keyLabel);
-        _keyCallbacks[keyLabel] = callback;
-        action.performed += callback;
+        
+        if (_useEnterForSubmit)
+            _playerInput.Keyboard.Enter.performed += EnableOrSubmit;
+        else
+            _playerInput.Keyboard.Enter.performed += SwitchEnabled;
     }
     
     private void Start()
     {
-        ValidateSequences(comboSequences);
         foreach (ComboSequence sequence in comboSequences)
         {           
             sequence.Initialize(sequence.Sequence, normalKeyAtlas, pressedKeyAtlas);
@@ -87,13 +87,7 @@ public class TypingSystem : MonoBehaviour
         CurrentTypingContext = 0;
         Initialize();
     }
-
-
-    private void ValidateSequences(List<ComboSequence> sequences)
-    {
-        //TODO validation
-    }
-
+    
     private void OnEnable()
     {
         foreach (var action in _keyActions.Values)
@@ -114,27 +108,38 @@ public class TypingSystem : MonoBehaviour
                 kvp.Value.performed -= callback;
         }
     }
-
-    protected void Enable(bool active)
+    
+    private void BindKey(string keyLabel, InputAction action)
     {
-        if (!active)
-            FailAllSequences();
-        Active = active;
-        _enabledIndicator?.SetActive(Active);
-    }
-        
-    private void OnKeyPressed(InputAction.CallbackContext context, string key)
-    {
-        if (!Active) return;
-        _currentTypedSequence += key;
-        CheckCombo();
+        _keyActions[keyLabel] = action;
+        Action<InputAction.CallbackContext> callback = ctx => OnKeyPressed(ctx, keyLabel);
+        _keyCallbacks[keyLabel] = callback;
+        action.performed += callback;
     }
 
+    /// <summary>
+    /// Checks for a full typed sequence on each key callback and submits if matched
+    /// </summary>
     private void CheckCombo()
     {
         if (string.IsNullOrEmpty(_currentTypedSequence))
             return;
 
+        if (CheckForFullMatch()) 
+            return;
+
+        if (CheckForwardForSingleKey()) 
+            return;
+
+        FailInstant();
+    }
+
+    /// <summary>
+    /// Checks the current typed sequence and submits it if a match
+    /// </summary>
+    /// <returns>Returns true if any combo has been matched and executed</returns>
+    private bool CheckForFullMatch()
+    {
         // Check for full match
         for (int i = 0; i < comboSequences.Count; i++)
         {
@@ -146,10 +151,19 @@ public class TypingSystem : MonoBehaviour
                 ExecuteCombo(comboSequence, i);
                 _currentTypedSequence = "";
                 _currentTypingIndex = 0;
-                return;
+                return true;
             }
         }
 
+        return false;
+    }
+
+    /// <summary>
+    /// Checks for the last typed key and forwards it in all sequences if match
+    /// </summary>
+    /// <returns>Returns true if any sequence has been forwarded</returns>
+    private bool CheckForwardForSingleKey()
+    {
         // Check for valid prefix of any combo
         foreach (var comboSequence in comboSequences)
         {
@@ -158,25 +172,47 @@ public class TypingSystem : MonoBehaviour
             {
                 _currentTypingIndex = _currentTypedSequence.Length;
                 comboSequence.ForwardCombo(_currentTypingIndex);
-                return;
+                return true;
             }
         }
 
-        FailInstant();
+        return false;
     }
-    
-    protected void FailInstant()
+
+    /// <summary>
+    /// Fails instantly all Sequences and refreshes to empty the current one 
+    /// </summary>
+    private void FailInstant()
     {
         _currentTypedSequence = "";
         _currentTypingIndex = 0;
         FailAllSequences();
     }
-    
 
+    /// <summary>
+    /// Initialization method for Children of TypingSystem. Runs after Sequence Initialization
+    /// </summary>
     protected virtual void Initialize()
     {
     }
+    
+    /// <summary>
+    /// Enabled/Disables the whole System
+    /// </summary>
+    /// <param name="active"></param>
+    protected void Enable(bool active)
+    {
+        if (!active)
+            FailAllSequences();
+        Active = active;
+        _enabledIndicator?.SetActive(Active);
+    }
 
+    /// <summary>
+    /// Publishes the current sequence to the Event Bus
+    /// </summary>
+    /// <param name="comboSequence"></param>
+    /// <param name="comboIndex"></param>
     protected virtual void ExecuteCombo(ComboSequence comboSequence, int comboIndex)
     {
         TypingEventBus.Publish(comboSequence.Sequence, "Anything");
@@ -189,13 +225,65 @@ public class TypingSystem : MonoBehaviour
         canvasToShake[CurrentTypingContext].ShakeCanvas();
     }
     
-    protected void FailInstant(InputAction.CallbackContext callbackContext)
+    #region Key Callbacks
+    
+    /// <summary>
+    /// Redirection method for assigning into InputSystem for a Fail Key Button
+    /// </summary>
+    /// <param name="callbackContext"></param>
+    private void FailInstant(InputAction.CallbackContext callbackContext)
     {
         FailInstant();
     }
     
-    private void SwitchFailed(InputAction.CallbackContext callbackContext)
+    /// <summary>
+    /// Redirection method for assigning into InputSystem for an Enable/Disable Key Button
+    /// </summary>
+    /// <param name="callbackContext"></param>
+    private void SwitchEnabled(InputAction.CallbackContext callbackContext)
     {
         Enable(!Active);
     }
+    
+    /// <summary>
+    /// Redirection method for assigning into InputSystem for a Enable/Submit Key Button (Normally Enter)
+    /// </summary>
+    /// <param name="callbackContext"></param>
+    private void EnableOrSubmit(InputAction.CallbackContext callbackContext)
+    {
+        if (_currentTypedSequence == "")
+        {
+            Enable(!Active);
+        }
+        else
+        {
+            if(!CheckForFullMatch())
+                FailInstant();
+        }
+    }
+    
+    /// <summary>
+    /// Redirection method for assigning into InputSystem for any key that can contribute to a Sequence
+    /// </summary>
+    /// <param name="callbackContext"></param>
+    /// <param name="key"></param>
+    private void OnKeyPressed(InputAction.CallbackContext callbackContext, string key)
+    {
+        if (!Active) return;
+        _currentTypedSequence += key;
+
+        if (_useEnterForSubmit)
+        {
+            if (!CheckForwardForSingleKey())
+            {
+                FailInstant();
+            }
+            return;
+        }
+
+        CheckCombo();
+    }
+
+    #endregion
+
 }
