@@ -14,6 +14,7 @@ public class TalkingDialog : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] DialogEntry _currentEntry;
     private Coroutine _typingCoroutine;
+    public Action OnDialogFinished;
 
     public void Setup(DialogEntry entry)
     {
@@ -68,5 +69,6 @@ public class TalkingDialog : MonoBehaviour, IPointerClickHandler
         
         _talkingText.text = "";
         this.gameObject.SetActive(false);
+        OnDialogFinished.Invoke();
     }
 }

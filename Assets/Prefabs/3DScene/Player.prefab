@@ -52,6 +52,7 @@ MonoBehaviour:
   _groundMask:
     serializedVersion: 2
     m_Bits: 128
+  _movementEffect: {fileID: 2463463281093065863, guid: feeb6035f0439554da58b049f92dcb5b, type: 3}
 --- !u!195 &2010121951610770290
 NavMeshAgent:
   m_ObjectHideFlags: 0

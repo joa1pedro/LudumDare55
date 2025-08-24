@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour
      private NavMeshAgent _playerAgent;
      [SerializeField] private Animator _animator;
      [SerializeField] private LayerMask _groundMask;
-
+     [SerializeField] private GameObject _movementEffect;
+     [SerializeField] private TalkingDialogManager _talkingDialogManager;
+     
     private static readonly int RunUp = Animator.StringToHash("RunUp");
     private static readonly int RunDown = Animator.StringToHash("RunDown");
     private static readonly int RunLeft = Animator.StringToHash("RunLeft");
@@ -112,12 +114,16 @@ public class PlayerController : MonoBehaviour
 
     private void MoveCharacter(InputAction.CallbackContext callbackContext)
     {
+        if (_talkingDialogManager.IsAnyDialogActive)
+            return;
+            
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
         if (Physics.Raycast(ray, out RaycastHit hit, _moveInteractDistance, _groundMask))
         {
             _playerAgent.SetDestination(hit.point);
+            Instantiate(_movementEffect, hit.point += new Vector3(0, 0.1f, 0), _movementEffect.transform.rotation);
         }
     }
     
@@ -126,7 +132,7 @@ public class PlayerController : MonoBehaviour
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         
-       Debug.DrawRay(ray.origin, ray.direction * _interactDistance, Color.red, 1f);
+        Debug.DrawRay(ray.origin, ray.direction * _interactDistance, Color.red, 1f);
         
         if (Physics.Raycast(ray, out RaycastHit hit, _interactDistance))
         {
