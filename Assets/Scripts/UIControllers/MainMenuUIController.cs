@@ -3,6 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuUIController : MonoBehaviour
 {
+    public enum Scene
+    {
+        MainMenu,
+        Options,
+        Inventory
+    }
+    
     [SerializeField] private GameObject _mainMenu;
     [SerializeField] private GameObject _loadingScreen;
     [SerializeField] private GameObject _optionsScreen;
@@ -10,7 +17,7 @@ public class MainMenuUIController : MonoBehaviour
     [SerializeField] private GameObject _enableButton;
     [SerializeField] private GameObject _disableButton;
 
-	private string currentScene;
+	private Scene _currentScene;
 
     private void Start()
     {
@@ -18,10 +25,10 @@ public class MainMenuUIController : MonoBehaviour
     }
 
     public void Return(){
-        if(currentScene == "SummonSelect"){
+        if(_currentScene == Scene.Inventory){
 		    ShowMainMenu();
         }
-        if(currentScene == "Options"){
+        if(_currentScene == Scene.Options){
             ShowMainMenu();
         }
 	}
@@ -33,15 +40,15 @@ public class MainMenuUIController : MonoBehaviour
 
     public void ShowSummonsSelect()
     {
-        currentScene = "Options";
+        _currentScene = Scene.Inventory;
         _loadingScreen.SetActive(true);
         _mainMenu.SetActive(false);
         _optionsScreen.SetActive(false);
-    }
+    }   
     
     public void ShowMainMenu()
     {
-        currentScene = "MainMenu";
+        _currentScene = Scene.MainMenu;
         _loadingScreen.SetActive(false);
         _mainMenu.SetActive(true);
         _optionsScreen.SetActive(false);
@@ -49,7 +56,7 @@ public class MainMenuUIController : MonoBehaviour
     
     public void ShowOptionsMenu()
     {
-        currentScene = "Options";
+        _currentScene = Scene.Options;
         _loadingScreen.SetActive(false);
         _mainMenu.SetActive(false);
         _optionsScreen.SetActive(true);

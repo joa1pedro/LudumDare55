@@ -14,6 +14,7 @@ namespace Gameplay
         private Dictionary<string, (Action callback, int? context)> navigationCallbacks;
         
         private List<Button> buttons;
+        public bool TypingButtonsEnabled;
         protected override void Initialize()
         {
             navigationCallbacks = new Dictionary<string, (Action, int?)>
@@ -37,7 +38,14 @@ namespace Gameplay
                 button.onClick.AddListener(() => InvokeNavigationCallback(button.GetComponentInParent<ComboSequence>().CallbackKey));
             }
             
-            EnableTypingButtons();
+            if (TypingButtonsEnabled)
+            {
+                EnableTypingButtons();
+            }
+            else
+            {
+                DisableTypingButtons();
+            }
         }
 
         private void InvokeNavigationCallback(string callbackKey)

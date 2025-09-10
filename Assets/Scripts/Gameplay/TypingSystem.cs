@@ -38,7 +38,10 @@ public class TypingSystem : MonoBehaviour
 
     private void Awake()
     {
-        _enabledIndicator?.SetActive(Active);
+        if (_enabledIndicator)
+        {
+            _enabledIndicator.SetActive(Active);
+        }
         
         _playerInput = new PlayerInput();
         _playerInput.Keyboard.Enable();
@@ -205,7 +208,10 @@ public class TypingSystem : MonoBehaviour
         if (!active)
             FailAllSequences();
         Active = active;
-        _enabledIndicator?.SetActive(Active);
+        if (_enabledIndicator)
+        {
+            _enabledIndicator.SetActive(Active);
+        }
     }
 
     /// <summary>
