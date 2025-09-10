@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,15 +10,15 @@ using UnityEngine.U2D;
 public class TypingSystem : MonoBehaviour
 {
     [Header("Atlases")]
-    [SerializeField] SpriteAtlas normalKeyAtlas = default; 
-    [SerializeField] SpriteAtlas pressedKeyAtlas = default;
+    [SerializeField] SpriteAtlas _normalKeyAtlas = default; 
+    [SerializeField] SpriteAtlas _pressedKeyAtlas = default;
 
     [Header("Canvas Shake References")]
     [SerializeField]
-    protected List<CanvasShaker> canvasToShake;
+    protected List<CanvasShaker> _canvasToShake;
     
     [Header("Sequences")]
-    [SerializeField] protected List<ComboSequence> comboSequences = new();
+    [SerializeField] protected List<ComboSequence> _comboSequences = new();
     
     [SerializeField] GameObject _enabledIndicator;
     
@@ -34,7 +35,8 @@ public class TypingSystem : MonoBehaviour
     private string _currentTypedSequence = "";
     private int _currentTypingIndex = 0;
     
-    protected int CurrentTypingContext;
+    public int CurrentTypingContext;
+    private bool _cantEnable;
 
     private void Awake()
     {
@@ -69,18 +71,19 @@ public class TypingSystem : MonoBehaviour
         BindKey("Y", _playerInput.Keyboard.Y);
         BindKey("Z", _playerInput.Keyboard.Z);
         _playerInput.Keyboard.Backspace.performed += FailInstant;
+        _playerInput.Keyboard.Escape.performed += EscapePressed;
         
         if (_useEnterForSubmit)
             _playerInput.Keyboard.Enter.performed += EnableOrSubmit;
         else
             _playerInput.Keyboard.Enter.performed += SwitchEnabled;
     }
-    
+
     private void Start()
     {
-        foreach (ComboSequence sequence in comboSequences)
+        foreach (ComboSequence sequence in _comboSequences)
         {           
-            sequence.Initialize(sequence.Sequence, normalKeyAtlas, pressedKeyAtlas);
+            sequence.Initialize(sequence.Sequence, _normalKeyAtlas, _pressedKeyAtlas);
         }
     
         // Initialize the context
@@ -141,9 +144,9 @@ public class TypingSystem : MonoBehaviour
     private bool CheckForFullMatch()
     {
         // Check for full match
-        for (int i = 0; i < comboSequences.Count; i++)
+        for (int i = 0; i < _comboSequences.Count; i++)
         {
-            var comboSequence = comboSequences[i];
+            var comboSequence = _comboSequences[i];
             
             if (_currentTypedSequence == comboSequence.Sequence 
                 && comboSequence.Context == CurrentTypingContext)
@@ -165,7 +168,7 @@ public class TypingSystem : MonoBehaviour
     private bool CheckForwardForSingleKey()
     {
         // Check for valid prefix of any combo
-        foreach (var comboSequence in comboSequences)
+        foreach (var comboSequence in _comboSequences)
         {
             if (comboSequence.Sequence.StartsWith(_currentTypedSequence) 
                 && comboSequence.Context == CurrentTypingContext)
@@ -195,17 +198,19 @@ public class TypingSystem : MonoBehaviour
     protected virtual void Initialize()
     {
     }
-    
+
     /// <summary>
     /// Enabled/Disables the whole System
     /// </summary>
     /// <param name="active"></param>
-    protected void Enable(bool active)
+    /// <param name="cantEnable"></param>
+    public void SetActive(bool active, bool cantEnable = false)
     {
         if (!active)
             FailAllSequences();
         Active = active;
         _enabledIndicator?.SetActive(Active);
+        _cantEnable = cantEnable;
     }
 
     /// <summary>
@@ -220,12 +225,21 @@ public class TypingSystem : MonoBehaviour
 
     protected virtual void FailAllSequences()
     {
-        if (!canvasToShake[CurrentTypingContext]) return;
+        if (!_canvasToShake[CurrentTypingContext]) return;
         
-        canvasToShake[CurrentTypingContext].ShakeCanvas();
+        _canvasToShake[CurrentTypingContext].ShakeCanvas();
     }
     
     #region Key Callbacks
+    
+    /// <summary>
+    /// Redirection method for assigning into InputSystem for a Fail Key Button
+    /// </summary>
+    /// <param name="callbackContext"></param>
+    private void EscapePressed(InputAction.CallbackContext callbackContext)
+    {
+        
+    }
     
     /// <summary>
     /// Redirection method for assigning into InputSystem for a Fail Key Button
@@ -242,7 +256,8 @@ public class TypingSystem : MonoBehaviour
     /// <param name="callbackContext"></param>
     private void SwitchEnabled(InputAction.CallbackContext callbackContext)
     {
-        Enable(!Active);
+        if (_cantEnable) return;
+        SetActive(!Active);
     }
     
     /// <summary>
@@ -253,7 +268,7 @@ public class TypingSystem : MonoBehaviour
     {
         if (_currentTypedSequence == "")
         {
-            Enable(!Active);
+            SetActive(!Active);
         }
         else
         {
@@ -286,4 +301,9 @@ public class TypingSystem : MonoBehaviour
 
     #endregion
 
+
+    public void AddSequences(List<ComboSequence> sequences)
+    {
+        _comboSequences.AddRange(sequences);
+    }
 }

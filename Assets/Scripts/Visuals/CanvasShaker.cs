@@ -16,7 +16,10 @@ public class CanvasShaker : MonoBehaviour
 
     public void ShakeCanvas()
     {
-        StartCoroutine(ShakeCoroutine());
+        if(gameObject.activeInHierarchy)
+        {
+            StartCoroutine(ShakeCoroutine());
+        }
     }
 
     private IEnumerator ShakeCoroutine()

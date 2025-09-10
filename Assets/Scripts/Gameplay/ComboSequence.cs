@@ -47,7 +47,7 @@ public class ComboSequence : MonoBehaviour
         CurrentComboindex = id-1;
         if (!comboPieces[CurrentComboindex].Active)
         {
-            comboPieces[CurrentComboindex].Activate(this.Sequence);
+            comboPieces[CurrentComboindex].Activate();
         }
     }
 
@@ -70,7 +70,7 @@ public class ComboSequence : MonoBehaviour
         CurrentComboindex = -1;
         foreach(ComboPiece piece in comboPieces)
         {
-            piece.MyComboEnded(Sequence);
+            piece.Deactivate();
         }
     }
 

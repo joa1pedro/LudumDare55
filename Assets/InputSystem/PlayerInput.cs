@@ -343,6 +343,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""9d5aeb20-cebe-40a6-8167-cb8a51404980"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -653,6 +662,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Enter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c3a11a03-0371-4b06-8ccc-c4cd38803b01"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -749,6 +769,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Keyboard_Z = m_Keyboard.FindAction("Z", throwIfNotFound: true);
         m_Keyboard_Backspace = m_Keyboard.FindAction("Backspace", throwIfNotFound: true);
         m_Keyboard_Enter = m_Keyboard.FindAction("Enter", throwIfNotFound: true);
+        m_Keyboard_Escape = m_Keyboard.FindAction("Escape", throwIfNotFound: true);
         // Mouse
         m_Mouse = asset.FindActionMap("Mouse", throwIfNotFound: true);
         m_Mouse_Move = m_Mouse.FindAction("Move", throwIfNotFound: true);
@@ -862,6 +883,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Keyboard_Z;
     private readonly InputAction m_Keyboard_Backspace;
     private readonly InputAction m_Keyboard_Enter;
+    private readonly InputAction m_Keyboard_Escape;
     /// <summary>
     /// Provides access to input actions defined in input action map "Keyboard".
     /// </summary>
@@ -986,6 +1008,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Enter => m_Wrapper.m_Keyboard_Enter;
         /// <summary>
+        /// Provides access to the underlying input action "Keyboard/Escape".
+        /// </summary>
+        public InputAction @Escape => m_Wrapper.m_Keyboard_Escape;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
@@ -1095,6 +1121,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Enter.started += instance.OnEnter;
             @Enter.performed += instance.OnEnter;
             @Enter.canceled += instance.OnEnter;
+            @Escape.started += instance.OnEscape;
+            @Escape.performed += instance.OnEscape;
+            @Escape.canceled += instance.OnEscape;
         }
 
         /// <summary>
@@ -1190,6 +1219,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Enter.started -= instance.OnEnter;
             @Enter.performed -= instance.OnEnter;
             @Enter.canceled -= instance.OnEnter;
+            @Escape.started -= instance.OnEscape;
+            @Escape.performed -= instance.OnEscape;
+            @Escape.canceled -= instance.OnEscape;
         }
 
         /// <summary>
@@ -1546,6 +1578,13 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnEnter(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Escape" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEscape(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Mouse" which allows adding and removing callbacks.

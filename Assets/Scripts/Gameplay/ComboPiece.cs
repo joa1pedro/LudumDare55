@@ -30,7 +30,7 @@ public class ComboPiece : MonoBehaviour
         pressedSprite = sprite;
     }
 
-    public void Activate(string comboName)
+    public void Activate()
     {
         if (!Active)
         {
@@ -40,7 +40,7 @@ public class ComboPiece : MonoBehaviour
 
     }
 
-    public void MyComboEnded(string comboName)
+    public void Deactivate()
     {
         Active = false;
         currentSprite.sprite = normalSprite;
